@@ -92,7 +92,7 @@ public class Controller{
     Pawn bluePawn4Object;
 
 
-    int diceThrow;
+    Integer diceThrow;
     int i = 0;
 
     public void initialize() {
@@ -188,26 +188,28 @@ public class Controller{
         if(blueSpawn1.isTaken()) {
             tries++;
         }
-            if(tries < 3) {
-                System.out.println("Proby: " + tries);
+        if(tries < 3) {
+            System.out.println("Proby: " + tries);
+            diceThrow = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+            dice.setText(diceThrow.toString());
+            if (diceThrow == 6 && blueSpawn1.isTaken()) {
+                bluePawn1.setLayoutX(bluePlayerPath.get(0).getPositionX());
+                bluePawn1.setLayoutY(bluePlayerPath.get(0).getPositionY());
+                bluePawn1Object.setCurrentPosition(0);
+                bluePawn1.setDisable(true);
+                blueSpawn1.setTaken(false);
+                blueStart.setTaken(true);
+            }
+            if(!blueSpawn1.isTaken() && bluePawn1.isDisabled()){
+                bluePawn1.setDisable(false);
                 diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                System.out.println("Kostka: " + diceThrow);
-                if (diceThrow == 6) {
-                    bluePawn1.setLayoutX(bluePlayerPath.get(0).getPositionX());
-                    bluePawn1.setLayoutY(bluePlayerPath.get(0).getPositionY());
-                    blueSpawn1.setTaken(false);
-                    bluePawn1Object.setCurrentPosition(0);
-                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                }
-                if(!blueSpawn1.isTaken()){
-                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                    bluePawn1.setDisable(false);
-                }
+                dice.setText(diceThrow.toString());
             }
-            if(tries==3){
-                dice.setDisable(true);
-                System.out.println("Proby: " + tries);
-            }
+        }
+        if(tries==3){
+            dice.setDisable(true);
+            System.out.println("Proby: " + tries);
+        }
     }
 
 }
