@@ -11,10 +11,10 @@
             <Button fx:id="yellowPawn3" layoutX="4.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffe500;" />
             <Button fx:id="yellowPawn4" layoutX="39.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffe500;" />
             <Button fx:id="yellowPawn2" layoutX="40.0" layoutY="3.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffe500;" />
-            <Button fx:id="bluePawn3" layoutX="4.0" layoutY="365.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
-            <Button fx:id="bluePawn4" layoutX="40.0" layoutY="365.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
-            <Button fx:id="bluePawn1" layoutX="4.0" layoutY="329.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#movePawn" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
-            <Button fx:id="bluePawn2" layoutX="40.0" layoutY="329.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
+            <Button fx:id="bluePawn3" layoutX="4.0" layoutY="365.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#moveBluePawn3" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
+            <Button fx:id="bluePawn4" layoutX="40.0" layoutY="365.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#moveBluePawn4" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
+            <Button fx:id="bluePawn1" layoutX="4.0" layoutY="329.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#moveBluePawn1" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
+            <Button fx:id="bluePawn2" layoutX="40.0" layoutY="329.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#moveBluePawn2" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #000099;" />
             <Button fx:id="redPawn2" layoutX="366.0" layoutY="330.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #800000;" />
             <Button fx:id="redPawn4" layoutX="367.0" layoutY="366.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #800000;" />
             <Button fx:id="redPawn1" layoutX="330.0" layoutY="330.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #800000;" />
@@ -24,5 +24,6 @@
             <Button fx:id="greenPawn3" layoutX="330.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #26ff00;" />
             <Button fx:id="greenPawn4" layoutX="366.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #26ff00;" />
          </children></AnchorPane>
+      <Button fx:id="dice" layoutX="531.0" layoutY="141.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#diceRoll" prefHeight="35.0" prefWidth="35.0" />
    </children>
 </AnchorPane>

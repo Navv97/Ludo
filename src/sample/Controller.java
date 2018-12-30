@@ -1,13 +1,16 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Controller {
+public class Controller{
 
     public AnchorPane boardLayout;
     public Button yellowPawn1;
@@ -26,6 +29,7 @@ public class Controller {
     public Button greenPawn2;
     public Button greenPawn3;
     public Button greenPawn4;
+    public Button dice;
 
     Field blueSpawn1 = new Field(4,329,true);
     Field blueSpawn2 = new Field(40,329,true);
@@ -36,36 +40,6 @@ public class Controller {
     Field blueFinish2 = new Field(185,293,false);
     Field blueFinish3 = new Field(185,258,false);
     Field blueFinish4 = new Field(185,221,false);
-
-    Field yellowSpawn1 = new Field(4,3,true);
-    Field yellowSpawn2 = new Field(40,3,true);
-    Field yellowSpawn3 = new Field(4,39,true);
-    Field yellowSpawn4 = new Field(39,39,true);
-
-    Field yellowFinish1 = new Field(40,184,false);
-    Field yellowFinish2 = new Field(76,184,false);
-    Field yellowFinish3 = new Field(112,184,false);
-    Field yellowFinish4 = new Field(149,184,false);
-
-    Field greenSpawn1 = new Field(331,3,true);
-    Field greenSpawn2 = new Field(366,3,true);
-    Field greenSpawn3 = new Field(330,39,true);
-    Field greenSpawn4 = new Field(366,39,true);
-
-    Field greenFinish1 = new Field(185,40,false);
-    Field greenFinish2 = new Field(185,76,false);
-    Field greenFinish3 = new Field(185,112,false);
-    Field greenFinish4 = new Field(185,148,false);
-
-    Field redSpawn1 = new Field(330,330,true);
-    Field redSpawn2 = new Field(366,330,true);
-    Field redSpawn3 = new Field(330,366,true);
-    Field redSpawn4 = new Field(367,366,true);
-
-    Field redFinish1 = new Field(329,184,false);
-    Field redFinish2 = new Field(293,184,false);
-    Field redFinish3 = new Field(257,184,false);
-    Field redFinish4 = new Field(221,184,false);
 
 //  FIELDS ON THE BOARD
     Field blueStart = new Field(149,365,false);
@@ -111,13 +85,22 @@ public class Controller {
 
     ArrayList<Field> generalPath = new ArrayList<Field>();
     ArrayList<Field> bluePlayerPath = new ArrayList<Field>();
-    ArrayList<Field> yellowPlayerPath = new ArrayList<Field>();
-    ArrayList<Field> greenPlayerPath = new ArrayList<Field>();
-    ArrayList<Field> redPlayerPath = new ArrayList<Field>();
-    Pawn bluePawn;
+
+    Pawn bluePawn1Object;
+    Pawn bluePawn2Object;
+    Pawn bluePawn3Object;
+    Pawn bluePawn4Object;
+
+
+    int diceThrow;
     int i = 0;
+
     public void initialize() {
-        bluePawn = new Pawn(bluePawn1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(), blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
+        bluePawn2Object = new Pawn(bluePawn2, -1, blueSpawn2.getPositionX(), blueSpawn2.getPositionY());
+        bluePawn3Object = new Pawn(bluePawn3, -1, blueSpawn3.getPositionX(), blueSpawn3.getPositionY());
+        bluePawn4Object = new Pawn(bluePawn4, -1, blueSpawn4.getPositionX(), blueSpawn4.getPositionY());
+
         //initialize path for all players
         generalPath.add(blueStart);
         generalPath.add(fieldOfPath1);
@@ -167,158 +150,65 @@ public class Controller {
         bluePlayerPath.add(blueFinish3);
         bluePlayerPath.add(blueFinish4);
 
-        //initialize path for yellow player
-        yellowPlayerPath.add(yellowStart);
-        yellowPlayerPath.add(fieldOfPath10);
-        yellowPlayerPath.add(fieldOfPath11);
-        yellowPlayerPath.add(fieldOfPath12);
-        yellowPlayerPath.add(fieldOfPath13);
-        yellowPlayerPath.add(fieldOfPath14);
-        yellowPlayerPath.add(fieldOfPath15);
-        yellowPlayerPath.add(fieldOfPath16);
-        yellowPlayerPath.add(fieldOfPath17);
-        yellowPlayerPath.add(fieldOfPath18);
-        yellowPlayerPath.add(greenStart);
-        yellowPlayerPath.add(fieldOfPath19);
-        yellowPlayerPath.add(fieldOfPath20);
-        yellowPlayerPath.add(fieldOfPath21);
-        yellowPlayerPath.add(fieldOfPath22);
-        yellowPlayerPath.add(fieldOfPath23);
-        yellowPlayerPath.add(fieldOfPath24);
-        yellowPlayerPath.add(fieldOfPath25);
-        yellowPlayerPath.add(fieldOfPath26);
-        yellowPlayerPath.add(fieldOfPath27);
-        yellowPlayerPath.add(redStart);
-        yellowPlayerPath.add(fieldOfPath28);
-        yellowPlayerPath.add(fieldOfPath29);
-        yellowPlayerPath.add(fieldOfPath30);
-        yellowPlayerPath.add(fieldOfPath31);
-        yellowPlayerPath.add(fieldOfPath32);
-        yellowPlayerPath.add(fieldOfPath33);
-        yellowPlayerPath.add(fieldOfPath34);
-        yellowPlayerPath.add(fieldOfPath35);
-        yellowPlayerPath.add(fieldOfPath36);
-        yellowPlayerPath.add(blueStart);
-        yellowPlayerPath.add(fieldOfPath1);
-        yellowPlayerPath.add(fieldOfPath2);
-        yellowPlayerPath.add(fieldOfPath3);
-        yellowPlayerPath.add(fieldOfPath4);
-        yellowPlayerPath.add(fieldOfPath5);
-        yellowPlayerPath.add(fieldOfPath6);
-        yellowPlayerPath.add(fieldOfPath7);
-        yellowPlayerPath.add(fieldOfPath8);
-        yellowPlayerPath.add(fieldOfPath9);
-        yellowPlayerPath.add(yellowFinish1);
-        yellowPlayerPath.add(yellowFinish2);
-        yellowPlayerPath.add(yellowFinish3);
-        yellowPlayerPath.add(yellowFinish4);
-
-        //initalize path for green player
-        greenPlayerPath.add(greenStart);
-        greenPlayerPath.add(fieldOfPath19);
-        greenPlayerPath.add(fieldOfPath20);
-        greenPlayerPath.add(fieldOfPath21);
-        greenPlayerPath.add(fieldOfPath22);
-        greenPlayerPath.add(fieldOfPath23);
-        greenPlayerPath.add(fieldOfPath24);
-        greenPlayerPath.add(fieldOfPath25);
-        greenPlayerPath.add(fieldOfPath26);
-        greenPlayerPath.add(fieldOfPath27);
-        greenPlayerPath.add(redStart);
-        greenPlayerPath.add(fieldOfPath28);
-        greenPlayerPath.add(fieldOfPath29);
-        greenPlayerPath.add(fieldOfPath30);
-        greenPlayerPath.add(fieldOfPath31);
-        greenPlayerPath.add(fieldOfPath32);
-        greenPlayerPath.add(fieldOfPath33);
-        greenPlayerPath.add(fieldOfPath34);
-        greenPlayerPath.add(fieldOfPath35);
-        greenPlayerPath.add(fieldOfPath36);
-        greenPlayerPath.add(blueStart);
-        greenPlayerPath.add(fieldOfPath1);
-        greenPlayerPath.add(fieldOfPath2);
-        greenPlayerPath.add(fieldOfPath3);
-        greenPlayerPath.add(fieldOfPath4);
-        greenPlayerPath.add(fieldOfPath5);
-        greenPlayerPath.add(fieldOfPath6);
-        greenPlayerPath.add(fieldOfPath7);
-        greenPlayerPath.add(fieldOfPath8);
-        greenPlayerPath.add(fieldOfPath9);
-        greenPlayerPath.add(yellowStart);
-        greenPlayerPath.add(fieldOfPath10);
-        greenPlayerPath.add(fieldOfPath11);
-        greenPlayerPath.add(fieldOfPath12);
-        greenPlayerPath.add(fieldOfPath13);
-        greenPlayerPath.add(fieldOfPath14);
-        greenPlayerPath.add(fieldOfPath15);
-        greenPlayerPath.add(fieldOfPath16);
-        greenPlayerPath.add(fieldOfPath17);
-        greenPlayerPath.add(fieldOfPath18);
-        greenPlayerPath.add(greenFinish1);
-        greenPlayerPath.add(greenFinish2);
-        greenPlayerPath.add(greenFinish3);
-        greenPlayerPath.add(greenFinish4);
-
-
-        //initalize path for red player
-        redPlayerPath.add(redStart);
-        redPlayerPath.add(fieldOfPath28);
-        redPlayerPath.add(fieldOfPath29);
-        redPlayerPath.add(fieldOfPath30);
-        redPlayerPath.add(fieldOfPath31);
-        redPlayerPath.add(fieldOfPath32);
-        redPlayerPath.add(fieldOfPath33);
-        redPlayerPath.add(fieldOfPath34);
-        redPlayerPath.add(fieldOfPath35);
-        redPlayerPath.add(fieldOfPath36);
-        redPlayerPath.add(blueStart);
-        redPlayerPath.add(fieldOfPath1);
-        redPlayerPath.add(fieldOfPath2);
-        redPlayerPath.add(fieldOfPath3);
-        redPlayerPath.add(fieldOfPath4);
-        redPlayerPath.add(fieldOfPath5);
-        redPlayerPath.add(fieldOfPath6);
-        redPlayerPath.add(fieldOfPath7);
-        redPlayerPath.add(fieldOfPath8);
-        redPlayerPath.add(fieldOfPath9);
-        redPlayerPath.add(yellowStart);
-        redPlayerPath.add(fieldOfPath10);
-        redPlayerPath.add(fieldOfPath11);
-        redPlayerPath.add(fieldOfPath12);
-        redPlayerPath.add(fieldOfPath13);
-        redPlayerPath.add(fieldOfPath14);
-        redPlayerPath.add(fieldOfPath15);
-        redPlayerPath.add(fieldOfPath16);
-        redPlayerPath.add(fieldOfPath17);
-        redPlayerPath.add(fieldOfPath18);
-        redPlayerPath.add(greenStart);
-        redPlayerPath.add(fieldOfPath19);
-        redPlayerPath.add(fieldOfPath20);
-        redPlayerPath.add(fieldOfPath21);
-        redPlayerPath.add(fieldOfPath22);
-        redPlayerPath.add(fieldOfPath23);
-        redPlayerPath.add(fieldOfPath24);
-        redPlayerPath.add(fieldOfPath25);
-        redPlayerPath.add(fieldOfPath26);
-        redPlayerPath.add(fieldOfPath27);
-        redPlayerPath.add(redFinish1);
-        redPlayerPath.add(redFinish2);
-        redPlayerPath.add(redFinish3);
-        redPlayerPath.add(redFinish4);
-        bluePawn.setCurrentPositionX(bluePlayerPath.get(i).getPositionX());
-        bluePawn.setCurrentPositionY(bluePlayerPath.get(i).getPositionY());
-        bluePawn1.setLayoutX(bluePlayerPath.get(i).getPositionX());
-        bluePawn1.setLayoutY(bluePlayerPath.get(i).getPositionY());
+        bluePawn1.setDisable(true);
+        bluePawn2.setDisable(true);
+        bluePawn3.setDisable(true);
+        bluePawn4.setDisable(true);
 
     }
-    public void movePawn(ActionEvent actionEvent) {
-        int diceRoll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        i = i + diceRoll;
-        bluePawn1.setLayoutX(bluePlayerPath.get(i).getPositionX());
-        bluePawn1.setLayoutY(bluePlayerPath.get(i).getPositionY());
-        bluePawn.setCurrentPositionX(bluePlayerPath.get(i).getPositionX());
-        bluePawn.setCurrentPositionY(bluePlayerPath.get(i).getPositionY());
 
+    public void moveBluePawn1() {
+        pawnController(bluePawn1,bluePawn1Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
     }
+
+    public void moveBluePawn2() {
+        pawnController(bluePawn2,bluePawn2Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
+    public void moveBluePawn3() {
+        pawnController(bluePawn3,bluePawn3Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
+    public void moveBluePawn4() {
+        pawnController(bluePawn4,bluePawn4Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
+    public void pawnController(Button pawnButton, Pawn pawnObject, int currentPosition, ArrayList<Field> path){
+        int moveBy = currentPosition + diceThrow;
+        pawnButton.setLayoutX(path.get(moveBy).getPositionX());
+        pawnButton.setLayoutY(path.get(moveBy).getPositionY());
+        pawnObject.setCurrentPosition(moveBy);
+        pawnButton.setDisable(true);
+        dice.setDisable(false);
+    }
+
+    int tries = -1;
+
+    public void diceRoll() {
+        if(blueSpawn1.isTaken()) {
+            tries++;
+        }
+            if(tries < 3) {
+                System.out.println("Proby: " + tries);
+                diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                System.out.println("Kostka: " + diceThrow);
+                if (diceThrow == 6) {
+                    bluePawn1.setLayoutX(bluePlayerPath.get(0).getPositionX());
+                    bluePawn1.setLayoutY(bluePlayerPath.get(0).getPositionY());
+                    blueSpawn1.setTaken(false);
+                    bluePawn1Object.setCurrentPosition(0);
+                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                }
+                if(!blueSpawn1.isTaken()){
+                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                    bluePawn1.setDisable(false);
+                }
+            }
+            if(tries==3){
+                dice.setDisable(true);
+                System.out.println("Proby: " + tries);
+            }
+    }
+
 }
 
