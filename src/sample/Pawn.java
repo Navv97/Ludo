@@ -4,15 +4,13 @@ import javafx.scene.control.Button;
 
 public class Pawn {
     public Button pawnType;
-    public int currentPositionX;
-    public int currentPositionY;
+    public int currentPosition;
     public int spawnPositionX;
     public int getSpawnPositionY;
 
-    public Pawn(Button pawnType, int currentPositionX, int currentPositionY, int spawnPositionX, int getSpawnPositionY) {
+    public Pawn(Button pawnType, int currentPosition, int spawnPositionX, int getSpawnPositionY) {
         this.pawnType = pawnType;
-        this.currentPositionX = currentPositionX;
-        this.currentPositionY = currentPositionY;
+        this.currentPosition = currentPosition;
         this.spawnPositionX = spawnPositionX;
         this.getSpawnPositionY = getSpawnPositionY;
     }
@@ -25,19 +23,12 @@ public class Pawn {
         this.pawnType = pawnType;
     }
 
-    public int getCurrentPositionX() {
-        return currentPositionX;
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 
-    public void setCurrentPositionX(int currentPositionX) {
-        this.currentPositionX = currentPositionX;
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
     }
 
-    public int getCurrentPositionY() {
-        return currentPositionY;
-    }
-
-    public void setCurrentPositionY(int currentPositionY) {
-        this.currentPositionY = currentPositionY;
-    }
 }

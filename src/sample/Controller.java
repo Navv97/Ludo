@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Controller {
+public class Controller{
 
     public AnchorPane boardLayout;
     public Button yellowPawn1;
@@ -26,98 +26,122 @@ public class Controller {
     public Button greenPawn2;
     public Button greenPawn3;
     public Button greenPawn4;
+    public Button blueDice;
+    public Button yellowDice;
+    public Button greenDice;
+    public Button redDice;
 
-    Field blueSpawn1 = new Field(4,329,true);
-    Field blueSpawn2 = new Field(40,329,true);
-    Field blueSpawn3 = new Field(4,365,true);
-    Field blueSpawn4 = new Field(40,365,true);
+    private Field blueSpawn1 = new Field(4,329,true);
+    private Field blueSpawn2 = new Field(40,329,true);
+    private Field blueSpawn3 = new Field(4,365,true);
+    private Field blueSpawn4 = new Field(40,365,true);
 
-    Field blueFinish1 = new Field(185,330,false);
-    Field blueFinish2 = new Field(185,293,false);
-    Field blueFinish3 = new Field(185,258,false);
-    Field blueFinish4 = new Field(185,221,false);
+    private Field blueFinish1 = new Field(185,330,false);
+    private Field blueFinish2 = new Field(185,293,false);
+    private Field blueFinish3 = new Field(185,258,false);
+    private Field blueFinish4 = new Field(185,221,false);
 
-    Field yellowSpawn1 = new Field(4,3,true);
-    Field yellowSpawn2 = new Field(40,3,true);
-    Field yellowSpawn3 = new Field(4,39,true);
-    Field yellowSpawn4 = new Field(39,39,true);
+    private Field yellowSpawn1 = new Field(4,3,true);
+    private Field yellowSpawn2 = new Field(40,3,true);
+    private Field yellowSpawn3 = new Field(4,39,true);
+    private Field yellowSpawn4 = new Field(39,39,true);
 
-    Field yellowFinish1 = new Field(40,184,false);
-    Field yellowFinish2 = new Field(76,184,false);
-    Field yellowFinish3 = new Field(112,184,false);
-    Field yellowFinish4 = new Field(149,184,false);
+    private Field yellowFinish1 = new Field(40,184,false);
+    private Field yellowFinish2 = new Field(76,184,false);
+    private Field yellowFinish3 = new Field(112,184,false);
+    private Field yellowFinish4 = new Field(149,184,false);
 
-    Field greenSpawn1 = new Field(331,3,true);
-    Field greenSpawn2 = new Field(366,3,true);
-    Field greenSpawn3 = new Field(330,39,true);
-    Field greenSpawn4 = new Field(366,39,true);
+    private Field greenSpawn1 = new Field(331,3,true);
+    private Field greenSpawn2 = new Field(366,3,true);
+    private Field greenSpawn3 = new Field(330,39,true);
+    private Field greenSpawn4 = new Field(366,39,true);
 
-    Field greenFinish1 = new Field(185,40,false);
-    Field greenFinish2 = new Field(185,76,false);
-    Field greenFinish3 = new Field(185,112,false);
-    Field greenFinish4 = new Field(185,148,false);
+    private Field greenFinish1 = new Field(185,40,false);
+    private Field greenFinish2 = new Field(185,76,false);
+    private Field greenFinish3 = new Field(185,112,false);
+    private Field greenFinish4 = new Field(185,148,false);
 
-    Field redSpawn1 = new Field(330,330,true);
-    Field redSpawn2 = new Field(366,330,true);
-    Field redSpawn3 = new Field(330,366,true);
-    Field redSpawn4 = new Field(367,366,true);
+    private Field redSpawn1 = new Field(330,330,true);
+    private Field redSpawn2 = new Field(366,330,true);
+    private Field redSpawn3 = new Field(330,366,true);
+    private Field redSpawn4 = new Field(367,366,true);
 
-    Field redFinish1 = new Field(329,184,false);
-    Field redFinish2 = new Field(293,184,false);
-    Field redFinish3 = new Field(257,184,false);
-    Field redFinish4 = new Field(221,184,false);
+    private Field redFinish1 = new Field(329,184,false);
+    private Field redFinish2 = new Field(293,184,false);
+    private Field redFinish3 = new Field(257,184,false);
+    private Field redFinish4 = new Field(221,184,false);
 
 //  FIELDS ON THE BOARD
-    Field blueStart = new Field(149,365,false);
-    Field fieldOfPath1 = new Field(149,330,false);
-    Field fieldOfPath2 = new Field(149,294,false);
-    Field fieldOfPath3 = new Field(149,258,false);
-    Field fieldOfPath4 = new Field(149,221,false);
-    Field fieldOfPath5 = new Field(112,221,false);
-    Field fieldOfPath6 = new Field(75,221,false);
-    Field fieldOfPath7 = new Field(40,221,false);
-    Field fieldOfPath8 = new Field(4,221,false);
-    Field fieldOfPath9 = new Field(4,184,false);
-    Field yellowStart = new Field(4,148,false);
-    Field fieldOfPath10 = new Field(40,148,false);
-    Field fieldOfPath11 = new Field(76,148,false);
-    Field fieldOfPath12 = new Field(112,148,false);
-    Field fieldOfPath13 = new Field(149,148,false);
-    Field fieldOfPath14 = new Field(149,112,false);
-    Field fieldOfPath15 = new Field(149,76,false);
-    Field fieldOfPath16 = new Field(149,40,false);
-    Field fieldOfPath17 = new Field(149,4,false);
-    Field fieldOfPath18 = new Field(185,4,false);
-    Field greenStart = new Field(221,4,false);
-    Field fieldOfPath19 = new Field(221,40,false);
-    Field fieldOfPath20 = new Field(221,76,false);
-    Field fieldOfPath21 = new Field(221,112,false);
-    Field fieldOfPath22 = new Field(221,148,false);
-    Field fieldOfPath23 = new Field(257,148,false);
-    Field fieldOfPath24 = new Field(293,148,false);
-    Field fieldOfPath25 = new Field(329,148,false);
-    Field fieldOfPath26 = new Field(365,148,false);
-    Field fieldOfPath27 = new Field(365,184,false);
-    Field redStart = new Field(365,221,false);
-    Field fieldOfPath28 = new Field(329,221,false);
-    Field fieldOfPath29 = new Field(293,221,false);
-    Field fieldOfPath30 = new Field(257,221,false);
-    Field fieldOfPath31 = new Field(221,221,false);
-    Field fieldOfPath32 = new Field(221,258,false);
-    Field fieldOfPath33 = new Field(221,293,false);
-    Field fieldOfPath34 = new Field(221,330,false);
-    Field fieldOfPath35 = new Field(221,365,false);
-    Field fieldOfPath36 = new Field(185,365,false);
+    private Field blueStart = new Field(149,365,false);
+    private Field fieldOfPath1 = new Field(149,330,false);
+    private Field fieldOfPath2 = new Field(149,294,false);
+    private Field fieldOfPath3 = new Field(149,258,false);
+    private Field fieldOfPath4 = new Field(149,221,false);
+    private Field fieldOfPath5 = new Field(112,221,false);
+    private Field fieldOfPath6 = new Field(75,221,false);
+    private Field fieldOfPath7 = new Field(40,221,false);
+    private Field fieldOfPath8 = new Field(4,221,false);
+    private Field fieldOfPath9 = new Field(4,184,false);
+    private Field yellowStart = new Field(4,148,false);
+    private Field fieldOfPath10 = new Field(40,148,false);
+    private Field fieldOfPath11 = new Field(76,148,false);
+    private Field fieldOfPath12 = new Field(112,148,false);
+    private Field fieldOfPath13 = new Field(149,148,false);
+    private Field fieldOfPath14 = new Field(149,112,false);
+    private Field fieldOfPath15 = new Field(149,76,false);
+    private Field fieldOfPath16 = new Field(149,40,false);
+    private Field fieldOfPath17 = new Field(149,4,false);
+    private Field fieldOfPath18 = new Field(185,4,false);
+    private Field greenStart = new Field(221,4,false);
+    private Field fieldOfPath19 = new Field(221,40,false);
+    private Field fieldOfPath20 = new Field(221,76,false);
+    private Field fieldOfPath21 = new Field(221,112,false);
+    private Field fieldOfPath22 = new Field(221,148,false);
+    private Field fieldOfPath23 = new Field(257,148,false);
+    private Field fieldOfPath24 = new Field(293,148,false);
+    private Field fieldOfPath25 = new Field(329,148,false);
+    private Field fieldOfPath26 = new Field(365,148,false);
+    private Field fieldOfPath27 = new Field(365,184,false);
+    private Field redStart = new Field(365,221,false);
+    private Field fieldOfPath28 = new Field(329,221,false);
+    private Field fieldOfPath29 = new Field(293,221,false);
+    private Field fieldOfPath30 = new Field(257,221,false);
+    private Field fieldOfPath31 = new Field(221,221,false);
+    private Field fieldOfPath32 = new Field(221,258,false);
+    private Field fieldOfPath33 = new Field(221,293,false);
+    private Field fieldOfPath34 = new Field(221,330,false);
+    private Field fieldOfPath35 = new Field(221,365,false);
+    private Field fieldOfPath36 = new Field(185,365,false);
 
-    ArrayList<Field> generalPath = new ArrayList<Field>();
-    ArrayList<Field> bluePlayerPath = new ArrayList<Field>();
-    ArrayList<Field> yellowPlayerPath = new ArrayList<Field>();
-    ArrayList<Field> greenPlayerPath = new ArrayList<Field>();
-    ArrayList<Field> redPlayerPath = new ArrayList<Field>();
-    Pawn bluePawn;
-    int i = 0;
+    public ArrayList<Field> generalPath = new ArrayList<Field>();
+    public ArrayList<Field> bluePlayerPath = new ArrayList<Field>();
+    public ArrayList<Field> yellowPlayerPath = new ArrayList<Field>();
+    public ArrayList<Field> greenPlayerPath = new ArrayList<Field>();
+    public  ArrayList<Field> redPlayerPath = new ArrayList<Field>();
+
+    public  Pawn bluePawn1Object;
+    public Pawn bluePawn2Object;
+    public  Pawn bluePawn3Object;
+    public Pawn bluePawn4Object;
+    public Pawn yellowPawn1Object;
+    public Pawn greenPawn1Object;
+    public Pawn redPawn1Object;
+
+
+    public Integer diceThrow;
+
+
     public void initialize() {
-        bluePawn = new Pawn(bluePawn1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(), blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
+        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY);
+        greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), yellowSpawn1.positionY);
+        redPawn1Object = new Pawn(redPawn1, -1, redSpawn1.getPositionX(), redSpawn1.positionY);
+
+        //useless for now
+        bluePawn2Object = new Pawn(bluePawn2, -1, blueSpawn2.getPositionX(), blueSpawn2.getPositionY());
+        bluePawn3Object = new Pawn(bluePawn3, -1, blueSpawn3.getPositionX(), blueSpawn3.getPositionY());
+        bluePawn4Object = new Pawn(bluePawn4, -1, blueSpawn4.getPositionX(), blueSpawn4.getPositionY());
+
         //initialize path for all players
         generalPath.add(blueStart);
         generalPath.add(fieldOfPath1);
@@ -259,7 +283,6 @@ public class Controller {
         greenPlayerPath.add(greenFinish3);
         greenPlayerPath.add(greenFinish4);
 
-
         //initalize path for red player
         redPlayerPath.add(redStart);
         redPlayerPath.add(fieldOfPath28);
@@ -305,20 +328,120 @@ public class Controller {
         redPlayerPath.add(redFinish2);
         redPlayerPath.add(redFinish3);
         redPlayerPath.add(redFinish4);
-        bluePawn.setCurrentPositionX(bluePlayerPath.get(i).getPositionX());
-        bluePawn.setCurrentPositionY(bluePlayerPath.get(i).getPositionY());
-        bluePawn1.setLayoutX(bluePlayerPath.get(i).getPositionX());
-        bluePawn1.setLayoutY(bluePlayerPath.get(i).getPositionY());
+
+        bluePawn1.setDisable(true);
+        yellowPawn1.setDisable(true);
+        greenPawn1.setDisable(true);
+        redPawn1.setDisable(true);
+
+        //useless for now
+        bluePawn2.setDisable(true);
+        bluePawn3.setDisable(true);
+        bluePawn4.setDisable(true);
+    }
+
+    public boolean blueTurn = true;
+    public boolean yellowTurn = false;
+    public boolean greenTurn = false;
+    public boolean redTurn = false;
+    public int yellowTries = -1;
+    public int blueTries = -1;
+    public int greenTries = -1;
+    public int redTries = -1;
+
+    public void bluePawnMovement() {
+        pawnController(bluePawn1,bluePawn1Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+        blueTurn = false;
+        yellowTurn = true;
+    }
+
+    public void yellowPawnMovement(ActionEvent actionEvent) {
+        pawnController(yellowPawn1,yellowPawn1Object,yellowPawn1Object.getCurrentPosition(),yellowPlayerPath);
+        yellowTurn = false;
+        greenTurn = true;
+    }
+
+    public void greenPawnMovement(ActionEvent actionEvent) {
+        pawnController(greenPawn1,greenPawn1Object,greenPawn1Object.getCurrentPosition(),greenPlayerPath);
+        greenTurn = false;
+        redTurn = true;
+    }
+
+    public void redPawnMovement(ActionEvent actionEvent) {
+        pawnController(redPawn1,redPawn1Object,redPawn1Object.getCurrentPosition(),redPlayerPath);
+        redTurn = false;
+        blueTurn = true;
+    }
+
+    public void blueDiceRoll() {
+        veryGoodDiceRoll(blueTurn,blueSpawn1,blueTries,blueDice,bluePawn1,bluePlayerPath,bluePawn1Object,blueStart);
+    }
+
+    public void yellowDiceRoll(ActionEvent actionEvent) {
+        veryGoodDiceRoll(yellowTurn,yellowSpawn1,yellowTries,yellowDice,yellowPawn1,yellowPlayerPath,yellowPawn1Object,yellowStart);
+    }
+
+    public void greenDiceRoll(ActionEvent actionEvent) {
+        veryGoodDiceRoll(greenTurn,greenSpawn1,greenTries,greenDice,greenPawn1,greenPlayerPath,greenPawn1Object,greenStart);
 
     }
-    public void movePawn(ActionEvent actionEvent) {
-        int diceRoll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        i = i + diceRoll;
-        bluePawn1.setLayoutX(bluePlayerPath.get(i).getPositionX());
-        bluePawn1.setLayoutY(bluePlayerPath.get(i).getPositionY());
-        bluePawn.setCurrentPositionX(bluePlayerPath.get(i).getPositionX());
-        bluePawn.setCurrentPositionY(bluePlayerPath.get(i).getPositionY());
+
+    public void redDiceRoll(ActionEvent actionEvent) {
+        veryGoodDiceRoll(redTurn,redSpawn1,redTries,redDice,redPawn1,redPlayerPath,redPawn1Object,redStart);
 
     }
+
+    public void pawnController(Button pawnButton, Pawn pawnObject, int currentPosition, ArrayList<Field> path){
+        int moveBy = currentPosition + diceThrow;
+        pawnButton.setLayoutX(path.get(moveBy).getPositionX());
+        pawnButton.setLayoutY(path.get(moveBy).getPositionY());
+        pawnObject.setCurrentPosition(moveBy);
+        pawnButton.setDisable(true);
+        blueDice.setDisable(false);
+    }
+
+    public void veryGoodDiceRoll(boolean yourTurn, Field yourSpawn, int yourTries, Button yourDice, Button yourPawnButton, ArrayList<Field> yourPath, Pawn yourPawnObject, Field yourStart){
+        if(yourTurn){
+            if(yourSpawn.isTaken()){
+                yourTries++;
+            }
+            if(yourTries < 3){
+                System.out.println("Proby: " + yourTries);
+                diceThrow = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+                yourDice.setText(diceThrow.toString());
+                if(diceThrow == 6 && yourSpawn.isTaken()){
+                    yourPawnButton.setLayoutX(yourPath.get(0).getPositionX());
+                    yourPawnButton.setLayoutY(yourPath.get(0).getPositionY());
+                    yourPawnObject.setCurrentPosition(0);
+                    yourPawnButton.setDisable(true);
+                    yourSpawn.setTaken(false);
+                    yourStart.setTaken(true);
+                }
+                if(!yourSpawn.isTaken() && yourPawnButton.isDisabled()){
+                    yourPawnButton.setDisable(false);
+                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                    yourDice.setText(diceThrow.toString());
+                }
+            }
+            if(yourTries == 3){
+                yourDice.setDisable(true);
+                System.out.println("Proby: " + yourTries);
+            }
+        }
+    }
+
+    //useless for now
+    public void moveBluePawn2() {
+        pawnController(bluePawn2,bluePawn2Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
+    public void moveBluePawn3() {
+        pawnController(bluePawn3,bluePawn3Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
+    public void moveBluePawn4() {
+        pawnController(bluePawn4,bluePawn4Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath);
+    }
+
 }
 
