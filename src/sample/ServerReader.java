@@ -10,18 +10,21 @@ public class ServerReader extends Thread {
     private Socket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
+    private PlayersList playersList;
 
     public ServerReader(Socket serverSocket) throws IOException {
+        this.playersList = PlayersList.getIstance();
         this.serverSocket = serverSocket;
         this.input = new BufferedReader(new InputStreamReader(this.serverSocket.getInputStream()));
         this.output = new PrintWriter(this.serverSocket.getOutputStream(), true);
+        playersList.addPlayer(output);
     }
 
     public void run(){
         try {
             String line;
             while ( (line = input.readLine()) != null) {
-                output.println(line);
+                playersList.notifyPlayers(line);
             }
         }catch (IOException e){
 

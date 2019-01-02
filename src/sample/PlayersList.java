@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PlayersList {
     private final List<PrintWriter> players = new ArrayList();
+
     private static PlayersList instance;
 
     private PlayersList(){
@@ -21,10 +22,14 @@ public class PlayersList {
         return instance;
     }
 
-    public void notifyPlayers(){
+    public void notifyPlayers(String message){
         for(int i = 0; i < players.size(); i++){
-            System.out.println();
-            players.get(i).println();
+            players.get(i).println(message);
         }
     }
+
+    public void addPlayer(PrintWriter player){
+        players.add(player);
+    }
+
 }
