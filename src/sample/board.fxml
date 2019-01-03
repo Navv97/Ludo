@@ -24,7 +24,7 @@
             <Button fx:id="greenPawn3" layoutX="330.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #26ff00;" />
             <Button fx:id="greenPawn4" layoutX="366.0" layoutY="39.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #26ff00;" />
          </children></AnchorPane>
-      <Button fx:id="blueDice" layoutX="531.0" layoutY="141.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#blueDiceRoll" prefHeight="35.0" prefWidth="35.0" />
+      <Button fx:id="blueDice" layoutX="531.0" layoutY="141.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#blueDiceRoll" prefHeight="35.0" prefWidth="35.0" textFill="#1f64ae" />
       <Button fx:id="yellowDice" layoutX="587.0" layoutY="141.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#yellowDiceRoll" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: yellow;" />
       <Button fx:id="greenDice" layoutX="523.0" layoutY="205.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#greenDiceRoll" prefHeight="35.0" style="-fx-background-color: green;" />
       <Button fx:id="redDice" layoutX="579.0" layoutY="210.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#redDiceRoll" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: red;" />

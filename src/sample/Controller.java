@@ -391,6 +391,7 @@ public class Controller{
 
     }
 
+    //przesuwa pionek
     public void pawnController(Button pawnButton, Pawn pawnObject, int currentPosition, ArrayList<Field> path){
         int moveBy = currentPosition + diceThrow;
         pawnButton.setLayoutX(path.get(moveBy).getPositionX());
@@ -400,13 +401,14 @@ public class Controller{
         blueDice.setDisable(false);
     }
 
+
     public void veryGoodDiceRoll(boolean yourTurn, Field yourSpawn, int yourTries, Button yourDice, Button yourPawnButton, ArrayList<Field> yourPath, Pawn yourPawnObject, Field yourStart){
         if(yourTurn){
             if(yourSpawn.isTaken()){
                 yourTries++;
             }
             if(yourTries < 3){
-                System.out.println("Proby: " + yourTries);
+                System.out.println("Proba numer: " + yourTries);
                 diceThrow = ThreadLocalRandom.current().nextInt(4, 6 + 1);
                 yourDice.setText(diceThrow.toString());
                 if(diceThrow == 6 && yourSpawn.isTaken()){
@@ -425,7 +427,7 @@ public class Controller{
             }
             if(yourTries == 3){
                 yourDice.setDisable(true);
-                System.out.println("Proby: " + yourTries);
+                System.out.println("Proby ci sie skonczyly: " + yourTries);
             }
         }
     }
