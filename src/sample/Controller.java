@@ -2,8 +2,12 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,6 +34,9 @@ public class Controller{
     public Button yellowDice;
     public Button greenDice;
     public Button redDice;
+    public TextArea textArea;
+    public TextField inputBox;
+    public Button sendMessage;
 
     private Field blueSpawn1 = new Field(4,329,true);
     private Field blueSpawn2 = new Field(40,329,true);
@@ -129,9 +136,17 @@ public class Controller{
 
 
     public Integer diceThrow;
+    public Socket clientSocket;
 
 
     public void initialize() {
+        try {
+            this.clientSocket = new Socket("127.0.0.1", 8888);
+            new ClientReader(clientSocket,textArea).start();
+        }catch (IOException e){
+            System.out.println("Popsulo sie");
+        }
+
         bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
         yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY);
         greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), yellowSpawn1.positionY);
@@ -500,4 +515,14 @@ public class Controller{
         pawnController(bluePawn4,bluePawn4Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath,blueDice);
     }
 
+    public void sendMessageAction(ActionEvent actionEvent) {
+        String message;
+        message = inputBox.getText();
+        try {
+            new ClientWriter(clientSocket, message).start();
+        }catch (IOException e){
+            System.out.println("Zepsulo sie cos");
+        }
+        inputBox.setText("");
+    }
 }
