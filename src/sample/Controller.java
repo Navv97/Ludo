@@ -142,11 +142,10 @@ public class Controller{
     public void initialize() {
         try {
             this.clientSocket = new Socket("127.0.0.1", 8888);
-            new ClientReader(clientSocket,textArea).start();
+            new ChatClientReader(clientSocket,textArea).start();
         }catch (IOException e){
             System.out.println("Popsulo sie");
         }
-
         bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
         yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY);
         greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), yellowSpawn1.positionY);
@@ -519,7 +518,7 @@ public class Controller{
         String message;
         message = inputBox.getText();
         try {
-            new ClientWriter(clientSocket, message).start();
+            new ChatClientWriter(clientSocket, message).start();
         }catch (IOException e){
             System.out.println("Zepsulo sie cos");
         }
