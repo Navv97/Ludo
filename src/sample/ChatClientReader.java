@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class ClientReader extends Thread{
+public class ChatClientReader extends Thread{
     private Socket clientSocket;
     private BufferedReader input;
     private TextArea textArea;
 
-    public ClientReader(Socket clientSocket, TextArea textArea) throws IOException {
+    public ChatClientReader(Socket clientSocket, TextArea textArea) throws IOException {
         this.clientSocket = clientSocket;
         this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
         this.textArea = textArea;

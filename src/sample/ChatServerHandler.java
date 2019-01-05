@@ -6,25 +6,25 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ServerHandler extends Thread {
+public class ChatServerHandler extends Thread {
     private Socket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
-    private PlayersList playersList;
+    private ChatUsersList chatUsersList;
 
-    public ServerHandler(Socket serverSocket, PlayersList playersList) throws IOException {
-        this.playersList = playersList;
+    public ChatServerHandler(Socket serverSocket, ChatUsersList chatUsersList) throws IOException {
+        this.chatUsersList = chatUsersList;
         this.serverSocket = serverSocket;
         this.input = new BufferedReader(new InputStreamReader(this.serverSocket.getInputStream()));
         this.output = new PrintWriter(this.serverSocket.getOutputStream(), true);
-        playersList.addPlayer(output);
+        chatUsersList.addPlayer(output);
     }
 
     public void run(){
         try {
             String line;
             while ( (line = input.readLine()) != null) {
-                playersList.notifyPlayers(line);
+                chatUsersList.notifyPlayers(line);
             }
         }catch (IOException e){
 
