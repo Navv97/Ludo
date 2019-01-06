@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -137,7 +139,8 @@ public class Controller{
 
     public Integer diceThrow;
     public Socket clientSocket;
-
+    public ObjectOutputStream output;
+    public ObjectInputStream input;
 
     public void initialize() {
         try {

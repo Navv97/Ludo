@@ -1,4 +1,4 @@
-package sample;
+package sample.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,25 +6,25 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ChatServerHandler extends Thread {
+public class BoardServerHandler extends Thread{
     private Socket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
-    private ChatUsersList chatUsersList;
+    private Players players;
 
-    public ChatServerHandler(Socket serverSocket, ChatUsersList chatUsersList) throws IOException {
-        this.chatUsersList = chatUsersList;
+    public BoardServerHandler(Socket serverSocket, Players players) throws IOException{
         this.serverSocket = serverSocket;
         this.input = new BufferedReader(new InputStreamReader(this.serverSocket.getInputStream()));
         this.output = new PrintWriter(this.serverSocket.getOutputStream(), true);
-        chatUsersList.addUser(output);
+        this.players = players;
+        players.addPlayer(output);
     }
 
     public void run(){
         try {
-            String line;
-            while ( (line = input.readLine()) != null) {
-                chatUsersList.notifyUsers(line);
+            String index;
+            while ( (index = input.readLine()) != null) {
+                players.notifyPlayers(index);
             }
         }catch (IOException e){
 
