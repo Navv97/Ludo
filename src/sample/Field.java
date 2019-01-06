@@ -1,6 +1,8 @@
 package sample;
 
-public class Field {
+import java.io.Serializable;
+
+public class Field implements Serializable {
     public int positionX;
     public int positionY;
     public boolean taken;

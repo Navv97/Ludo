@@ -1,7 +1,4 @@
-package sample.test;
-
-import sample.test.BoardServerHandler;
-import sample.test.Players;
+package sample;
 
 import java.io.IOException;
 import java.net.ServerSocket;

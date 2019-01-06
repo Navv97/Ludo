@@ -6,9 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -138,14 +136,19 @@ public class Controller{
 
 
     public Integer diceThrow;
-    public Socket clientSocket;
-    public ObjectOutputStream output;
-    public ObjectInputStream input;
+    public Socket chatSocket;
+    public Socket boardSocket;
+    public ArrayList<Button> indexesOfPawns;
+    public ArrayList<Pawn> indexesOfPawnsObject;
+    public ArrayList<ArrayList <Field>> paths;
+    private BufferedReader input;
+    private PrintWriter output;
+
 
     public void initialize() {
         try {
-            this.clientSocket = new Socket("127.0.0.1", 8888);
-            new ChatClientReader(clientSocket,textArea).start();
+            this.chatSocket = new Socket("127.0.0.1", 8888);
+            new ChatClientReader(chatSocket,textArea).start();
         }catch (IOException e){
             System.out.println("Popsulo sie");
         }
@@ -346,6 +349,31 @@ public class Controller{
         redPlayerPath.add(redFinish3);
         redPlayerPath.add(redFinish4);
 
+        indexesOfPawns = new ArrayList<>();
+        indexesOfPawnsObject = new ArrayList<>();
+
+        indexesOfPawns.add(bluePawn1);
+        indexesOfPawns.add(bluePawn2);
+        indexesOfPawns.add(bluePawn3);
+        indexesOfPawns.add(bluePawn4);
+        indexesOfPawns.add(yellowPawn1);
+        indexesOfPawns.add(yellowPawn2);
+        indexesOfPawns.add(yellowPawn3);
+        indexesOfPawns.add(yellowPawn4);
+        indexesOfPawns.add(greenPawn1);
+        indexesOfPawns.add(greenPawn2);
+        indexesOfPawns.add(greenPawn3);
+        indexesOfPawns.add(greenPawn4);
+        indexesOfPawns.add(redPawn1);
+        indexesOfPawns.add(redPawn2);
+        indexesOfPawns.add(redPawn3);
+        indexesOfPawns.add(redPawn4);
+
+        indexesOfPawnsObject.add(bluePawn1Object);
+        indexesOfPawnsObject.add(yellowPawn1Object);
+        indexesOfPawnsObject.add(greenPawn1Object);
+        indexesOfPawnsObject.add(redPawn1Object);
+
         bluePawn1.setDisable(true);
         yellowPawn1.setDisable(true);
         greenPawn1.setDisable(true);
@@ -359,6 +387,21 @@ public class Controller{
         bluePawn2.setDisable(true);
         bluePawn3.setDisable(true);
         bluePawn4.setDisable(true);
+
+        paths = new ArrayList<>();
+        paths.add(bluePlayerPath);
+        paths.add(yellowPlayerPath);
+        paths.add(greenPlayerPath);
+        paths.add(redPlayerPath);
+
+        try{
+            this.boardSocket = new Socket("127.0.0.1", 7777);
+            this.input = new BufferedReader(new InputStreamReader(this.boardSocket.getInputStream()));
+            this.output = new PrintWriter(this.boardSocket.getOutputStream(), true);
+            new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths).start();
+        }catch (IOException e){
+
+        }
     }
 
     public boolean blueTurn = true;
@@ -371,7 +414,7 @@ public class Controller{
     public int redTries = -1;
 
     public void bluePawnMovement() {
-        pawnController(bluePawn1,bluePawn1Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
         blueDice.setDisable(true);
         yellowDice.setDisable(false);
         blueTurn = false;
@@ -379,7 +422,7 @@ public class Controller{
     }
 
     public void yellowPawnMovement(ActionEvent actionEvent) {
-        pawnController(yellowPawn1,yellowPawn1Object,yellowPawn1Object.getCurrentPosition(),yellowPlayerPath,yellowDice);
+        pawnController(4,1,yellowPawn1Object.getCurrentPosition(),1,yellowDice);
         yellowDice.setDisable(true);
         greenDice.setDisable(false);
         yellowTurn = false;
@@ -387,7 +430,7 @@ public class Controller{
     }
 
     public void greenPawnMovement(ActionEvent actionEvent) {
-        pawnController(greenPawn1,greenPawn1Object,greenPawn1Object.getCurrentPosition(),greenPlayerPath,greenDice);
+        pawnController(8,2,greenPawn1Object.getCurrentPosition(),2,greenDice);
         greenDice.setDisable(true);
         redDice.setDisable(false);
         greenTurn = false;
@@ -395,7 +438,7 @@ public class Controller{
     }
 
     public void redPawnMovement(ActionEvent actionEvent) {
-        pawnController(redPawn1,redPawn1Object,redPawn1Object.getCurrentPosition(),redPlayerPath,redDice);
+        pawnController(12,3,redPawn1Object.getCurrentPosition(),3,redDice);
         redDice.setDisable(true);
         blueDice.setDisable(false);
         redTurn = false;
@@ -471,12 +514,15 @@ public class Controller{
         }
     }
 
-    public void pawnController(Button pawnButton, Pawn pawnObject, int currentPosition, ArrayList<Field> path, Button dice){
+    public void pawnController(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice){
         int moveBy = currentPosition + diceThrow;
-        pawnButton.setLayoutX(path.get(moveBy).getPositionX());
-        pawnButton.setLayoutY(path.get(moveBy).getPositionY());
-        pawnObject.setCurrentPosition(moveBy);
-        pawnButton.setDisable(true);
+
+        output.println(pawnButtonID);
+        output.println(pawnObjectID);
+        output.println(pathID);
+        output.println(moveBy);
+
+        indexesOfPawns.get(pawnButtonID).setDisable(true);
         dice.setDisable(false);
     }
 
@@ -506,22 +552,22 @@ public class Controller{
 
     //useless for now
     public void moveBluePawn2() {
-        pawnController(bluePawn2,bluePawn2Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
     }
 
     public void moveBluePawn3() {
-        pawnController(bluePawn3,bluePawn3Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
     }
 
     public void moveBluePawn4() {
-        pawnController(bluePawn4,bluePawn4Object,bluePawn1Object.getCurrentPosition(),bluePlayerPath,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
     }
 
     public void sendMessageAction(ActionEvent actionEvent) {
         String message;
         message = inputBox.getText();
         try {
-            new ChatClientWriter(clientSocket, message).start();
+            new ChatClientWriter(chatSocket, message).start();
         }catch (IOException e){
             System.out.println("Zepsulo sie cos");
         }

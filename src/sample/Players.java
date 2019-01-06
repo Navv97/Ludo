@@ -1,4 +1,4 @@
-package sample.test;
+package sample;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

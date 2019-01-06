@@ -2,7 +2,9 @@ package sample;
 
 import javafx.scene.control.Button;
 
-public class Pawn {
+import java.io.Serializable;
+
+public class Pawn implements Serializable{
     public Button pawnType;
     public int currentPosition;
     public int spawnPositionX;
