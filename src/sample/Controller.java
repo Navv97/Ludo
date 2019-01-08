@@ -141,8 +141,11 @@ public class Controller{
     public ArrayList<Button> indexesOfPawns;
     public ArrayList<Pawn> indexesOfPawnsObject;
     public ArrayList<ArrayList <Field>> paths;
+    public ArrayList<Boolean> playersTruns;
+    public ArrayList<Button> indexesOfDices;
     private BufferedReader input;
     private PrintWriter output;
+    private int playerIndex;
 
 
     public void initialize() {
@@ -351,6 +354,18 @@ public class Controller{
 
         indexesOfPawns = new ArrayList<>();
         indexesOfPawnsObject = new ArrayList<>();
+        playersTruns = new ArrayList<>();
+        indexesOfDices = new ArrayList<>();
+
+        indexesOfDices.add(blueDice);
+        indexesOfDices.add(yellowDice);
+        indexesOfDices.add(greenDice);
+        indexesOfDices.add(redDice);
+
+        playersTruns.add(blueTurn);
+        playersTruns.add(yellowTurn);
+        playersTruns.add(greenTurn);
+        playersTruns.add(redTurn);
 
         indexesOfPawns.add(bluePawn1);
         indexesOfPawns.add(bluePawn2);
@@ -398,7 +413,8 @@ public class Controller{
             this.boardSocket = new Socket("127.0.0.1", 7777);
             this.input = new BufferedReader(new InputStreamReader(this.boardSocket.getInputStream()));
             this.output = new PrintWriter(this.boardSocket.getOutputStream(), true);
-            new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths).start();
+            this.playerIndex = Integer.parseInt(input.readLine());
+            new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths,playersTruns,indexesOfDices).start();
         }catch (IOException e){
 
         }
@@ -414,137 +430,136 @@ public class Controller{
     public int redTries = -1;
 
     public void bluePawnMovement() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
-        blueDice.setDisable(true);
-        yellowDice.setDisable(false);
-        blueTurn = false;
-        yellowTurn = true;
+        if(playerIndex==1) {
+            pawnController(0, 0, bluePawn1Object.getCurrentPosition(), 0, blueDice, 0, 1);
+        }
     }
 
     public void yellowPawnMovement(ActionEvent actionEvent) {
-        pawnController(4,1,yellowPawn1Object.getCurrentPosition(),1,yellowDice);
-        yellowDice.setDisable(true);
-        greenDice.setDisable(false);
-        yellowTurn = false;
-        greenTurn = true;
+        if(playerIndex==2) {
+            pawnController(4, 1, yellowPawn1Object.getCurrentPosition(), 1, yellowDice, 1, 2);
+        }
     }
 
     public void greenPawnMovement(ActionEvent actionEvent) {
-        pawnController(8,2,greenPawn1Object.getCurrentPosition(),2,greenDice);
-        greenDice.setDisable(true);
-        redDice.setDisable(false);
-        greenTurn = false;
-        redTurn = true;
+        if(playerIndex==3) {
+            pawnController(8, 2, greenPawn1Object.getCurrentPosition(), 2, greenDice, 2, 3);
+        }
     }
 
     public void redPawnMovement(ActionEvent actionEvent) {
-        pawnController(12,3,redPawn1Object.getCurrentPosition(),3,redDice);
-        redDice.setDisable(true);
-        blueDice.setDisable(false);
-        redTurn = false;
-        blueTurn = true;
-    }
-
-    public void blueDiceRoll() {
-        if(blueSpawn1.isTaken()) {
-            this.blueTries++;
-        }
-        veryGoodDiceRoll(blueTurn,blueSpawn1,blueTries,blueDice,bluePawn1,bluePlayerPath,bluePawn1Object,blueStart);
-        if((blueSpawn1.isTaken() && this.blueTries == 2)  || (!blueSpawn1.isTaken() && this.blueTries == 1) || (!blueSpawn1.isTaken() && this.blueTries == 0)){
-            blueTurn = false;
-            yellowTurn = true;
-            if(blueSpawn1.isTaken() && this.blueTries == 2) {
-                blueDice.setDisable(true);
-                yellowDice.setDisable(false);
-            }
-            this.blueTries = -1;
-        }
-
-    }
-
-    public void yellowDiceRoll(ActionEvent actionEvent) {
-        if(yellowSpawn1.isTaken()){
-            this.yellowTries++;
-        }
-        veryGoodDiceRoll(yellowTurn,yellowSpawn1,yellowTries,yellowDice,yellowPawn1,yellowPlayerPath,yellowPawn1Object,yellowStart);
-        if((yellowSpawn1.isTaken() && this.yellowTries == 2) || (!yellowSpawn1.isTaken() && this.yellowTries == 1) || (!yellowSpawn1.isTaken() && this.yellowTries == 0)){
-            yellowTurn = false;
-            greenTurn = true;
-            if(yellowSpawn1.isTaken() && this.yellowTries == 2) {
-                yellowDice.setDisable(true);
-                greenDice.setDisable(false);
-            }
-            this.yellowTries = -1;
+        if(playerIndex==4) {
+            pawnController(12, 3, redPawn1Object.getCurrentPosition(), 3, redDice, 3, 0);
         }
     }
 
-    public void greenDiceRoll(ActionEvent actionEvent) {
-        if(greenSpawn1.isTaken()){
-            this.greenTries++;
-        }
-        veryGoodDiceRoll(greenTurn,greenSpawn1,greenTries,greenDice,greenPawn1,greenPlayerPath,greenPawn1Object,greenStart);
-        if((greenSpawn1.isTaken() && this.greenTries == 2) || (!greenSpawn1.isTaken() && this.greenTries == 1) || (!greenSpawn1.isTaken() && this.greenTries == 0)){
-            greenTurn = false;
-            redTurn = true;
-            if(greenSpawn1.isTaken() && this.greenTries == 2) {
-                greenDice.setDisable(true);
-                redDice.setDisable(false);
-            }
-            if(!greenSpawn1.isTaken()){
-                greenDice.setDisable(true);
-                redDice.setDisable(false);
-            }
-            this.greenTries = -1;
-        }
-    }
-
-    public void redDiceRoll(ActionEvent actionEvent) {
-        if(redSpawn1.isTaken()){
-            this.redTries++;
-        }
-        veryGoodDiceRoll(redTurn,redSpawn1,redTries,redDice,redPawn1,redPlayerPath,redPawn1Object,redStart);
-        if((redSpawn1.isTaken() && this.redTries == 2) || (!redSpawn1.isTaken() && this.redTries == 1) || (!redSpawn1.isTaken() && this.redTries == 0)){
-            redTurn = false;
-            blueTurn = true;
-            if(redSpawn1.isTaken() && this.redTries == 2) {
-                redDice.setDisable(true);
-                blueDice.setDisable(false);
-            }
-            this.redTries = -1;
-        }
-    }
-
-    public void pawnController(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice){
+    public void pawnController(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer){
         int moveBy = currentPosition + diceThrow;
-
         output.println(pawnButtonID);
         output.println(pawnObjectID);
         output.println(pathID);
         output.println(moveBy);
-
+        output.println(currentPlayer);
+        output.println(nextPlayer);
         indexesOfPawns.get(pawnButtonID).setDisable(true);
         dice.setDisable(false);
     }
 
-    public void veryGoodDiceRoll(boolean yourTurn, Field yourSpawn, int yourTries, Button yourDice, Button yourPawnButton, ArrayList<Field> yourPath, Pawn yourPawnObject, Field yourStart){
-        if(yourTurn){
+    public void blueDiceRoll() {
+        if(playerIndex==1) {
+            if (blueSpawn1.isTaken()) {
+                this.blueTries++;
+            }
+            veryGoodDiceRoll(0,blueSpawn1,blueTries,0,0,0,0,blueStart);
+            if ((blueSpawn1.isTaken() && this.blueTries == 2) || (!blueSpawn1.isTaken() && this.blueTries == 1) || (!blueSpawn1.isTaken() && this.blueTries == 0)) {
+                blueTurn = false;
+                yellowTurn = true;
+                if (blueSpawn1.isTaken() && this.blueTries == 2) {
+                    blueDice.setDisable(true);
+                    yellowDice.setDisable(false);
+                }
+                this.blueTries = -1;
+            }
+        }
+    }
+
+    public void yellowDiceRoll(ActionEvent actionEvent) {
+        if(playerIndex==2) {
+            if (yellowSpawn1.isTaken()) {
+                this.yellowTries++;
+            }
+            veryGoodDiceRoll(1,yellowSpawn1,yellowTries,1,4,1,1,yellowStart);
+            if ((yellowSpawn1.isTaken() && this.yellowTries == 2) || (!yellowSpawn1.isTaken() && this.yellowTries == 1) || (!yellowSpawn1.isTaken() && this.yellowTries == 0)) {
+                yellowTurn = false;
+                greenTurn = true;
+                if (yellowSpawn1.isTaken() && this.yellowTries == 2) {
+                    yellowDice.setDisable(true);
+                    greenDice.setDisable(false);
+                }
+                this.yellowTries = -1;
+            }
+        }
+    }
+
+    public void greenDiceRoll(ActionEvent actionEvent) {
+        if(playerIndex==3) {
+            if (greenSpawn1.isTaken()) {
+                this.greenTries++;
+            }
+            veryGoodDiceRoll(2,greenSpawn1,greenTries,2,8,2,2,greenStart);
+            if ((greenSpawn1.isTaken() && this.greenTries == 2) || (!greenSpawn1.isTaken() && this.greenTries == 1) || (!greenSpawn1.isTaken() && this.greenTries == 0)) {
+                greenTurn = false;
+                redTurn = true;
+                if (greenSpawn1.isTaken() && this.greenTries == 2) {
+                    greenDice.setDisable(true);
+                    redDice.setDisable(false);
+                }
+                if (!greenSpawn1.isTaken()) {
+                    greenDice.setDisable(true);
+                    redDice.setDisable(false);
+                }
+                this.greenTries = -1;
+            }
+        }
+    }
+
+    public void redDiceRoll(ActionEvent actionEvent) {
+        if(playerIndex==4) {
+            if (redSpawn1.isTaken()) {
+                this.redTries++;
+            }
+            veryGoodDiceRoll(3,redSpawn1,redTries,3,12,3,3,redStart);
+            if ((redSpawn1.isTaken() && this.redTries == 2) || (!redSpawn1.isTaken() && this.redTries == 1) || (!redSpawn1.isTaken() && this.redTries == 0)) {
+                redTurn = false;
+                blueTurn = true;
+                if (redSpawn1.isTaken() && this.redTries == 2) {
+                    redDice.setDisable(true);
+                    blueDice.setDisable(false);
+                }
+                this.redTries = -1;
+            }
+        }
+    }
+
+    public void veryGoodDiceRoll(int yourTurn, Field yourSpawn, int yourTries, int yourDice, int yourPawnButton, int yourPath, int yourPawnObject, Field yourStart){
+        if(playersTruns.get(yourTurn)){
             if(yourTries < 3){
                 System.out.println("Proby: " + yourTries);
-                diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                yourDice.setText(diceThrow.toString());
+                diceThrow = ThreadLocalRandom.current().nextInt(6, 6 + 1);
+                indexesOfDices.get(yourDice).setText(diceThrow.toString());
                 if(diceThrow == 6 && yourSpawn.isTaken()){
-                    yourPawnButton.setLayoutX(yourPath.get(0).getPositionX());
-                    yourPawnButton.setLayoutY(yourPath.get(0).getPositionY());
-                    yourPawnObject.setCurrentPosition(0);
-                    yourPawnButton.setDisable(true);
+                    indexesOfPawns.get(yourPawnButton).setLayoutX(paths.get(yourPath).get(0).getPositionX());
+                    indexesOfPawns.get(yourPawnButton).setLayoutY(paths.get(yourPath).get(0).getPositionY());
+                    indexesOfPawnsObject.get(yourPawnObject).setCurrentPosition(0);
+                    indexesOfPawns.get(yourPawnButton).setDisable(true);
                     yourSpawn.setTaken(false);
                     yourStart.setTaken(true);
                 }
-                if(!yourSpawn.isTaken() && yourPawnButton.isDisabled()){
-                    yourPawnButton.setDisable(false);
-                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                    yourDice.setText(diceThrow.toString());
-                    yourDice.setDisable(true);
+                if(!yourSpawn.isTaken() && indexesOfPawns.get(yourPawnButton).isDisabled()){
+                    indexesOfPawns.get(yourPawnButton).setDisable(false);
+                    diceThrow = ThreadLocalRandom.current().nextInt(6, 6 + 1);
+                    indexesOfDices.get(yourDice).setText(diceThrow.toString());
+                    indexesOfDices.get(yourDice).setDisable(true);
                 }
             }
         }
@@ -552,15 +567,15 @@ public class Controller{
 
     //useless for now
     public void moveBluePawn2() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void moveBluePawn3() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void moveBluePawn4() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice);
+        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void sendMessageAction(ActionEvent actionEvent) {

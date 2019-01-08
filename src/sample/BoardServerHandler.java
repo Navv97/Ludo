@@ -15,11 +15,13 @@ public class BoardServerHandler extends Thread{
         this.output = new PrintWriter(this.serverSocket.getOutputStream(), true);
         this.players = players;
         players.addPlayer(output);
+        players.setAmoutOfPlayers(players.getAmoutOfPlayers()+1);
     }
 
     public void run(){
         try {
             String index;
+            output.println(players.getAmoutOfPlayers());
             while ( (index = input.readLine()) != null) {
                 players.notifyPlayers(index);
             }
