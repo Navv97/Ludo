@@ -8,13 +8,13 @@ public class Pawn implements Serializable{
     public Button pawnType;
     public int currentPosition;
     public int spawnPositionX;
-    public int getSpawnPositionY;
+    public int spawnPositionY;
 
     public Pawn(Button pawnType, int currentPosition, int spawnPositionX, int getSpawnPositionY) {
         this.pawnType = pawnType;
         this.currentPosition = currentPosition;
         this.spawnPositionX = spawnPositionX;
-        this.getSpawnPositionY = getSpawnPositionY;
+        this.spawnPositionY = getSpawnPositionY;
     }
 
     public Button getPawnType() {

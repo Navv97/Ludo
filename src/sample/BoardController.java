@@ -41,9 +41,11 @@ public class BoardController extends Thread{
                 int currentPlayer = Integer.parseInt(input.readLine());
                 int nextPlayer = Integer.parseInt(input.readLine());
                 System.out.println(buttonIndex + " " + pawnIndex + " " + pathIndex + " " + moveBy + " " + currentPlayer + " " + nextPlayer);
-                indexesOfButtons.get(buttonIndex).setLayoutX(indexesOfPaths.get(pathIndex).get(moveBy).getPositionX());
-                indexesOfButtons.get(buttonIndex).setLayoutY(indexesOfPaths.get(pathIndex).get(moveBy).getPositionY());
-                indexesOfPawns.get(pawnIndex).setCurrentPosition(moveBy);
+                if(moveBy != 0) {
+                    indexesOfButtons.get(buttonIndex).setLayoutX(indexesOfPaths.get(pathIndex).get(moveBy).getPositionX());
+                    indexesOfButtons.get(buttonIndex).setLayoutY(indexesOfPaths.get(pathIndex).get(moveBy).getPositionY());
+                    indexesOfPawns.get(pawnIndex).setCurrentPosition(moveBy);
+                }
                 playersTurns.set(currentPlayer,false);
                 playersTurns.set(nextPlayer,true);
                 indexesOfDices.get(currentPlayer).setDisable(true);

@@ -472,12 +472,12 @@ public class Controller{
             }
             veryGoodDiceRoll(0,blueSpawn1,blueTries,0,0,0,0,blueStart);
             if ((blueSpawn1.isTaken() && this.blueTries == 2) || (!blueSpawn1.isTaken() && this.blueTries == 1) || (!blueSpawn1.isTaken() && this.blueTries == 0)) {
-                blueTurn = false;
-                yellowTurn = true;
-                if (blueSpawn1.isTaken() && this.blueTries == 2) {
-                    blueDice.setDisable(true);
-                    yellowDice.setDisable(false);
-                }
+                output.println(0);
+                output.println(0);
+                output.println(0);
+                output.println(0);
+                output.println(0);
+                output.println(1);
                 this.blueTries = -1;
             }
         }
@@ -490,12 +490,12 @@ public class Controller{
             }
             veryGoodDiceRoll(1,yellowSpawn1,yellowTries,1,4,1,1,yellowStart);
             if ((yellowSpawn1.isTaken() && this.yellowTries == 2) || (!yellowSpawn1.isTaken() && this.yellowTries == 1) || (!yellowSpawn1.isTaken() && this.yellowTries == 0)) {
-                yellowTurn = false;
-                greenTurn = true;
-                if (yellowSpawn1.isTaken() && this.yellowTries == 2) {
-                    yellowDice.setDisable(true);
-                    greenDice.setDisable(false);
-                }
+                output.println(4);
+                output.println(1);
+                output.println(1);
+                output.println(0);
+                output.println(1);
+                output.println(2);
                 this.yellowTries = -1;
             }
         }
@@ -508,16 +508,12 @@ public class Controller{
             }
             veryGoodDiceRoll(2,greenSpawn1,greenTries,2,8,2,2,greenStart);
             if ((greenSpawn1.isTaken() && this.greenTries == 2) || (!greenSpawn1.isTaken() && this.greenTries == 1) || (!greenSpawn1.isTaken() && this.greenTries == 0)) {
-                greenTurn = false;
-                redTurn = true;
-                if (greenSpawn1.isTaken() && this.greenTries == 2) {
-                    greenDice.setDisable(true);
-                    redDice.setDisable(false);
-                }
-                if (!greenSpawn1.isTaken()) {
-                    greenDice.setDisable(true);
-                    redDice.setDisable(false);
-                }
+                output.println(8);
+                output.println(2);
+                output.println(2);
+                output.println(0);
+                output.println(2);
+                output.println(3);
                 this.greenTries = -1;
             }
         }
@@ -530,12 +526,12 @@ public class Controller{
             }
             veryGoodDiceRoll(3,redSpawn1,redTries,3,12,3,3,redStart);
             if ((redSpawn1.isTaken() && this.redTries == 2) || (!redSpawn1.isTaken() && this.redTries == 1) || (!redSpawn1.isTaken() && this.redTries == 0)) {
-                redTurn = false;
-                blueTurn = true;
-                if (redSpawn1.isTaken() && this.redTries == 2) {
-                    redDice.setDisable(true);
-                    blueDice.setDisable(false);
-                }
+                output.println(12);
+                output.println(3);
+                output.println(3);
+                output.println(0);
+                output.println(3);
+                output.println(0);
                 this.redTries = -1;
             }
         }
@@ -545,7 +541,7 @@ public class Controller{
         if(playersTruns.get(yourTurn)){
             if(yourTries < 3){
                 System.out.println("Proby: " + yourTries);
-                diceThrow = ThreadLocalRandom.current().nextInt(6, 6 + 1);
+                diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
                 indexesOfDices.get(yourDice).setText(diceThrow.toString());
                 if(diceThrow == 6 && yourSpawn.isTaken()){
                     indexesOfPawns.get(yourPawnButton).setLayoutX(paths.get(yourPath).get(0).getPositionX());
@@ -557,7 +553,7 @@ public class Controller{
                 }
                 if(!yourSpawn.isTaken() && indexesOfPawns.get(yourPawnButton).isDisabled()){
                     indexesOfPawns.get(yourPawnButton).setDisable(false);
-                    diceThrow = ThreadLocalRandom.current().nextInt(6, 6 + 1);
+                    diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
                     indexesOfDices.get(yourDice).setText(diceThrow.toString());
                     indexesOfDices.get(yourDice).setDisable(true);
                 }
