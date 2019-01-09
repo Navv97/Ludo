@@ -1,6 +1,8 @@
-package sample;
+package BoardController.Client;
 
 import javafx.scene.control.Button;
+import Model.Field;
+import Model.Pawn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,7 +43,7 @@ public class BoardController extends Thread{
                 int currentPlayer = Integer.parseInt(input.readLine());
                 int nextPlayer = Integer.parseInt(input.readLine());
                 System.out.println(buttonIndex + " " + pawnIndex + " " + pathIndex + " " + moveBy + " " + currentPlayer + " " + nextPlayer);
-                if(moveBy != 0) {
+                if(moveBy != -1) {
                     indexesOfButtons.get(buttonIndex).setLayoutX(indexesOfPaths.get(pathIndex).get(moveBy).getPositionX());
                     indexesOfButtons.get(buttonIndex).setLayoutY(indexesOfPaths.get(pathIndex).get(moveBy).getPositionY());
                     indexesOfPawns.get(pawnIndex).setCurrentPosition(moveBy);

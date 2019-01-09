@@ -1,5 +1,9 @@
-package sample;
+package BoardController.Client;
 
+import Chat.Client.ChatClientReader;
+import Chat.Client.ChatClientWriter;
+import Model.Field;
+import Model.Pawn;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -126,7 +130,7 @@ public class Controller{
     public ArrayList<Field> greenPlayerPath = new ArrayList<Field>();
     public  ArrayList<Field> redPlayerPath = new ArrayList<Field>();
 
-    public  Pawn bluePawn1Object;
+    public Pawn bluePawn1Object;
     public Pawn bluePawn2Object;
     public  Pawn bluePawn3Object;
     public Pawn bluePawn4Object;
@@ -155,15 +159,15 @@ public class Controller{
         }catch (IOException e){
             System.out.println("Popsulo sie");
         }
-        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY());
-        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY);
-        greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), yellowSpawn1.positionY);
-        redPawn1Object = new Pawn(redPawn1, -1, redSpawn1.getPositionX(), redSpawn1.positionY);
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
+        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
+        greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), yellowSpawn1.positionY,greenStart);
+        redPawn1Object = new Pawn(redPawn1, -1, redSpawn1.getPositionX(), redSpawn1.positionY,redStart);
 
         //useless for now
-        bluePawn2Object = new Pawn(bluePawn2, -1, blueSpawn2.getPositionX(), blueSpawn2.getPositionY());
-        bluePawn3Object = new Pawn(bluePawn3, -1, blueSpawn3.getPositionX(), blueSpawn3.getPositionY());
-        bluePawn4Object = new Pawn(bluePawn4, -1, blueSpawn4.getPositionX(), blueSpawn4.getPositionY());
+        bluePawn2Object = new Pawn(bluePawn2, -1, blueSpawn2.getPositionX(), blueSpawn2.getPositionY(),blueStart);
+        bluePawn3Object = new Pawn(bluePawn3, -1, blueSpawn3.getPositionX(), blueSpawn3.getPositionY(),blueStart);
+        bluePawn4Object = new Pawn(bluePawn4, -1, blueSpawn4.getPositionX(), blueSpawn4.getPositionY(),blueStart);
 
         //initialize path for all players
         generalPath.add(blueStart);
@@ -388,7 +392,7 @@ public class Controller{
         indexesOfPawnsObject.add(yellowPawn1Object);
         indexesOfPawnsObject.add(greenPawn1Object);
         indexesOfPawnsObject.add(redPawn1Object);
-
+        textArea.setEditable(false);
         bluePawn1.setDisable(true);
         yellowPawn1.setDisable(true);
         greenPawn1.setDisable(true);
@@ -455,12 +459,7 @@ public class Controller{
 
     public void pawnController(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer){
         int moveBy = currentPosition + diceThrow;
-        output.println(pawnButtonID);
-        output.println(pawnObjectID);
-        output.println(pathID);
-        output.println(moveBy);
-        output.println(currentPlayer);
-        output.println(nextPlayer);
+        setPawnPosition(pawnButtonID,pawnObjectID,pathID,moveBy,currentPlayer,nextPlayer);
         indexesOfPawns.get(pawnButtonID).setDisable(true);
         dice.setDisable(false);
     }
@@ -472,12 +471,7 @@ public class Controller{
             }
             veryGoodDiceRoll(0,blueSpawn1,blueTries,0,0,0,0,blueStart);
             if ((blueSpawn1.isTaken() && this.blueTries == 2) || (!blueSpawn1.isTaken() && this.blueTries == 1) || (!blueSpawn1.isTaken() && this.blueTries == 0)) {
-                output.println(0);
-                output.println(0);
-                output.println(0);
-                output.println(0);
-                output.println(0);
-                output.println(1);
+                setPawnPosition(0,0,0,-1,0,1);
                 this.blueTries = -1;
             }
         }
@@ -490,12 +484,7 @@ public class Controller{
             }
             veryGoodDiceRoll(1,yellowSpawn1,yellowTries,1,4,1,1,yellowStart);
             if ((yellowSpawn1.isTaken() && this.yellowTries == 2) || (!yellowSpawn1.isTaken() && this.yellowTries == 1) || (!yellowSpawn1.isTaken() && this.yellowTries == 0)) {
-                output.println(4);
-                output.println(1);
-                output.println(1);
-                output.println(0);
-                output.println(1);
-                output.println(2);
+                setPawnPosition(4,1,1,-1,1,2);
                 this.yellowTries = -1;
             }
         }
@@ -508,12 +497,7 @@ public class Controller{
             }
             veryGoodDiceRoll(2,greenSpawn1,greenTries,2,8,2,2,greenStart);
             if ((greenSpawn1.isTaken() && this.greenTries == 2) || (!greenSpawn1.isTaken() && this.greenTries == 1) || (!greenSpawn1.isTaken() && this.greenTries == 0)) {
-                output.println(8);
-                output.println(2);
-                output.println(2);
-                output.println(0);
-                output.println(2);
-                output.println(3);
+                setPawnPosition(8,2,2,-1,2,3);
                 this.greenTries = -1;
             }
         }
@@ -526,12 +510,7 @@ public class Controller{
             }
             veryGoodDiceRoll(3,redSpawn1,redTries,3,12,3,3,redStart);
             if ((redSpawn1.isTaken() && this.redTries == 2) || (!redSpawn1.isTaken() && this.redTries == 1) || (!redSpawn1.isTaken() && this.redTries == 0)) {
-                output.println(12);
-                output.println(3);
-                output.println(3);
-                output.println(0);
-                output.println(3);
-                output.println(0);
+                setPawnPosition(12,3,3,-1,3,0);
                 this.redTries = -1;
             }
         }
@@ -544,9 +523,7 @@ public class Controller{
                 diceThrow = ThreadLocalRandom.current().nextInt(1, 6 + 1);
                 indexesOfDices.get(yourDice).setText(diceThrow.toString());
                 if(diceThrow == 6 && yourSpawn.isTaken()){
-                    indexesOfPawns.get(yourPawnButton).setLayoutX(paths.get(yourPath).get(0).getPositionX());
-                    indexesOfPawns.get(yourPawnButton).setLayoutY(paths.get(yourPath).get(0).getPositionY());
-                    indexesOfPawnsObject.get(yourPawnObject).setCurrentPosition(0);
+                    setPawnPosition(yourPawnButton,yourPawnObject,yourPath,0,playerIndex-1,playerIndex-1);
                     indexesOfPawns.get(yourPawnButton).setDisable(true);
                     yourSpawn.setTaken(false);
                     yourStart.setTaken(true);
@@ -559,6 +536,15 @@ public class Controller{
                 }
             }
         }
+    }
+
+    public void setPawnPosition(int buttonID, int pawnID, int pathID, int moveBy, int currentPlayer, int nextPlayer){
+        output.println(buttonID);
+        output.println(pawnID);
+        output.println(pathID);
+        output.println(moveBy);
+        output.println(currentPlayer);
+        output.println(nextPlayer);
     }
 
     //useless for now

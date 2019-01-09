@@ -1,4 +1,4 @@
-package sample;
+package BoardController.Server;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
