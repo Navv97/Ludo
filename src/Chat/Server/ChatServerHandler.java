@@ -1,4 +1,4 @@
-package sample;
+package Chat.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +17,14 @@ public class ChatServerHandler extends Thread {
         this.serverSocket = serverSocket;
         this.input = new BufferedReader(new InputStreamReader(this.serverSocket.getInputStream()));
         this.output = new PrintWriter(this.serverSocket.getOutputStream(), true);
-        chatUsersList.addPlayer(output);
+        chatUsersList.addUser(output);
     }
 
     public void run(){
         try {
             String line;
             while ( (line = input.readLine()) != null) {
-                chatUsersList.notifyPlayers(line);
+                chatUsersList.notifyUsers(line);
             }
         }catch (IOException e){
 

@@ -1,4 +1,4 @@
-package sample;
+package Chat.Server;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,13 +12,13 @@ public class ChatUsersList {
 
     }
 
-    public void notifyPlayers(String message){
+    public void notifyUsers(String message){
         for (PrintWriter printWriter : users){
             printWriter.println(message);
         }
     }
 
-    public void addPlayer(PrintWriter user){
+    public void addUser(PrintWriter user){
         users.add(user);
     }
 }

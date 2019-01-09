@@ -1,4 +1,4 @@
-package sample;
+package Chat.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

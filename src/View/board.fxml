@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="boardLayout" maxHeight="410.0" maxWidth="700.0" minHeight="410.0" minWidth="700.0" prefHeight="410.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="boardLayout" maxHeight="410.0" maxWidth="700.0" minHeight="410.0" minWidth="700.0" prefHeight="410.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardController.Client.Controller">
    <children>
       <AnchorPane layoutX="5.0" layoutY="5.0" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-image: url(&quot;plansza.png&quot;);" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
