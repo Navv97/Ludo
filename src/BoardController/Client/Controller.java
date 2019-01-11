@@ -157,7 +157,7 @@ public class Controller{
             this.chatSocket = new Socket("127.0.0.1", 8888);
             new ChatClientReader(chatSocket,textArea).start();
         }catch (IOException e){
-            System.out.println("Popsulo sie");
+            System.out.println(e.toString());
         }
         bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
         yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
@@ -420,7 +420,7 @@ public class Controller{
             this.playerIndex = Integer.parseInt(input.readLine());
             new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths,playersTruns,indexesOfDices).start();
         }catch (IOException e){
-
+            System.out.println(e.toString());
         }
     }
 
@@ -435,29 +435,29 @@ public class Controller{
 
     public void bluePawnMovement() {
         if(playerIndex==1) {
-            pawnController(0, 0, bluePawn1Object.getCurrentPosition(), 0, blueDice, 0, 1);
+            pawnMovement(0, 0, bluePawn1Object.getCurrentPosition(), 0, blueDice, 0, 1);
         }
     }
 
     public void yellowPawnMovement(ActionEvent actionEvent) {
         if(playerIndex==2) {
-            pawnController(4, 1, yellowPawn1Object.getCurrentPosition(), 1, yellowDice, 1, 2);
+            pawnMovement(4, 1, yellowPawn1Object.getCurrentPosition(), 1, yellowDice, 1, 2);
         }
     }
 
     public void greenPawnMovement(ActionEvent actionEvent) {
         if(playerIndex==3) {
-            pawnController(8, 2, greenPawn1Object.getCurrentPosition(), 2, greenDice, 2, 3);
+            pawnMovement(8, 2, greenPawn1Object.getCurrentPosition(), 2, greenDice, 2, 3);
         }
     }
 
     public void redPawnMovement(ActionEvent actionEvent) {
         if(playerIndex==4) {
-            pawnController(12, 3, redPawn1Object.getCurrentPosition(), 3, redDice, 3, 0);
+            pawnMovement(12, 3, redPawn1Object.getCurrentPosition(), 3, redDice, 3, 0);
         }
     }
 
-    public void pawnController(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer){
+    public void pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer){
         int moveBy = currentPosition + diceThrow;
         setPawnPosition(pawnButtonID,pawnObjectID,pathID,moveBy,currentPlayer,nextPlayer);
         indexesOfPawns.get(pawnButtonID).setDisable(true);
@@ -469,7 +469,7 @@ public class Controller{
             if (blueSpawn1.isTaken()) {
                 this.blueTries++;
             }
-            veryGoodDiceRoll(0,blueSpawn1,blueTries,0,0,0,0,blueStart);
+            diceRoll(0,blueSpawn1,blueTries,0,0,0,0,blueStart);
             if ((blueSpawn1.isTaken() && this.blueTries == 2) || (!blueSpawn1.isTaken() && this.blueTries == 1) || (!blueSpawn1.isTaken() && this.blueTries == 0)) {
                 setPawnPosition(0,0,0,-1,0,1);
                 this.blueTries = -1;
@@ -482,7 +482,7 @@ public class Controller{
             if (yellowSpawn1.isTaken()) {
                 this.yellowTries++;
             }
-            veryGoodDiceRoll(1,yellowSpawn1,yellowTries,1,4,1,1,yellowStart);
+            diceRoll(1,yellowSpawn1,yellowTries,1,4,1,1,yellowStart);
             if ((yellowSpawn1.isTaken() && this.yellowTries == 2) || (!yellowSpawn1.isTaken() && this.yellowTries == 1) || (!yellowSpawn1.isTaken() && this.yellowTries == 0)) {
                 setPawnPosition(4,1,1,-1,1,2);
                 this.yellowTries = -1;
@@ -495,7 +495,7 @@ public class Controller{
             if (greenSpawn1.isTaken()) {
                 this.greenTries++;
             }
-            veryGoodDiceRoll(2,greenSpawn1,greenTries,2,8,2,2,greenStart);
+            diceRoll(2,greenSpawn1,greenTries,2,8,2,2,greenStart);
             if ((greenSpawn1.isTaken() && this.greenTries == 2) || (!greenSpawn1.isTaken() && this.greenTries == 1) || (!greenSpawn1.isTaken() && this.greenTries == 0)) {
                 setPawnPosition(8,2,2,-1,2,3);
                 this.greenTries = -1;
@@ -508,7 +508,7 @@ public class Controller{
             if (redSpawn1.isTaken()) {
                 this.redTries++;
             }
-            veryGoodDiceRoll(3,redSpawn1,redTries,3,12,3,3,redStart);
+            diceRoll(3,redSpawn1,redTries,3,12,3,3,redStart);
             if ((redSpawn1.isTaken() && this.redTries == 2) || (!redSpawn1.isTaken() && this.redTries == 1) || (!redSpawn1.isTaken() && this.redTries == 0)) {
                 setPawnPosition(12,3,3,-1,3,0);
                 this.redTries = -1;
@@ -516,7 +516,7 @@ public class Controller{
         }
     }
 
-    public void veryGoodDiceRoll(int yourTurn, Field yourSpawn, int yourTries, int yourDice, int yourPawnButton, int yourPath, int yourPawnObject, Field yourStart){
+    public void diceRoll(int yourTurn, Field yourSpawn, int yourTries, int yourDice, int yourPawnButton, int yourPath, int yourPawnObject, Field yourStart){
         if(playersTruns.get(yourTurn)){
             if(yourTries < 3){
                 System.out.println("Proby: " + yourTries);
@@ -549,15 +549,15 @@ public class Controller{
 
     //useless for now
     public void moveBluePawn2() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
+        pawnMovement(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void moveBluePawn3() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
+        pawnMovement(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void moveBluePawn4() {
-        pawnController(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
+        pawnMovement(0,0,bluePawn1Object.getCurrentPosition(),0,blueDice,0,0);
     }
 
     public void sendMessageAction(ActionEvent actionEvent) {
@@ -566,7 +566,7 @@ public class Controller{
         try {
             new ChatClientWriter(chatSocket, message).start();
         }catch (IOException e){
-            System.out.println("Zepsulo sie cos");
+            System.out.println(e.toString());
         }
         inputBox.setText("");
     }

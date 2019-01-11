@@ -54,7 +54,7 @@ public class BoardController extends Thread{
                 indexesOfDices.get(nextPlayer).setDisable(false);
             }
         }catch (IOException e){
-
+            System.out.println(e.toString());
         }
     }
 

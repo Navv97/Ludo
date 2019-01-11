@@ -27,7 +27,7 @@ public class ChatServerHandler extends Thread {
                 chatUsersList.notifyUsers(line);
             }
         }catch (IOException e){
-
+            System.out.println(e.toString());
         }
     }
 

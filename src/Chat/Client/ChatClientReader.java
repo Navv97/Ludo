@@ -26,7 +26,7 @@ public class ChatClientReader extends Thread{
                 textArea.appendText(line + "\n");
             }
         }catch (IOException e){
-            System.out.println("Nie da rady");
+            System.out.println(e.toString());
         }
     }
 

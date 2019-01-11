@@ -26,7 +26,7 @@ public class BoardServerHandler extends Thread{
                 players.notifyPlayers(index);
             }
         }catch (IOException e){
-
+            System.out.println(e.toString());
         }
     }
 
