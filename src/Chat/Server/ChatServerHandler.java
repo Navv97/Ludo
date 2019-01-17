@@ -23,6 +23,14 @@ public class ChatServerHandler extends Thread {
     public void run(){
         try {
             String line;
+            if(chatUsersList.getGameType() != 0){
+                output.println(chatUsersList.getGameType());
+            }
+            if(chatUsersList.getGameType() == 0) {
+                int gameType = Integer.parseInt(input.readLine());
+                chatUsersList.setGameType(gameType);
+                output.println(gameType);
+            }
             while ( (line = input.readLine()) != null) {
                 chatUsersList.notifyUsers(line);
             }

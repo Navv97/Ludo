@@ -41,6 +41,9 @@ public class Controller{
     public TextArea textArea;
     public TextField inputBox;
     public Button sendMessage;
+    public Button gameType1;
+    public Button gameType2;
+    public Button gameType3;
 
     private Field blueSpawn1 = new Field(4,329,true);
     private Field blueSpawn2 = new Field(40,329,true);
@@ -132,7 +135,7 @@ public class Controller{
 
     public Pawn bluePawn1Object;
     public Pawn bluePawn2Object;
-    public  Pawn bluePawn3Object;
+    public Pawn bluePawn3Object;
     public Pawn bluePawn4Object;
     public Pawn yellowPawn1Object;
     public Pawn greenPawn1Object;
@@ -148,19 +151,14 @@ public class Controller{
     public ArrayList<Boolean> playersTurns;
     public ArrayList<Button> indexesOfDices;
     private BufferedReader input;
+    private BufferedReader input2;
     private PrintWriter output;
+    private PrintWriter output2;
     private int playerIndex;
     private int gameType;
 
 
     public void initialize() {
-        gameType = 2;
-        try {
-            this.chatSocket = new Socket("127.0.0.1", 8888);
-            new ChatClientReader(chatSocket,textArea).start();
-        }catch (IOException e){
-            System.out.println(e.toString());
-        }
 
         //initialize path for all players
         generalPath.add(blueStart);
@@ -355,132 +353,36 @@ public class Controller{
         indexesOfDices = new ArrayList<>();
         paths = new ArrayList<>();
 
-        if(gameType == 2){
-            bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
-            yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
+        try{
+            this.boardSocket = new Socket("127.0.0.1", 7777);
+            this.input = new BufferedReader(new InputStreamReader(this.boardSocket.getInputStream()));
+            this.output = new PrintWriter(this.boardSocket.getOutputStream(), true);
+            this.playerIndex = Integer.parseInt(input.readLine());
+            new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths,playersTurns,indexesOfDices).start();
+        }catch (IOException e){
+            System.out.println(e.toString());
+            System.exit(1);
+        }
 
-            indexesOfDices.add(blueDice);
-            indexesOfDices.add(yellowDice);
+        try {
+            this.chatSocket = new Socket("127.0.0.1", 8888);
+            this.input2 = new BufferedReader(new InputStreamReader(this.chatSocket.getInputStream()));
+            this.output2 = new PrintWriter(this.chatSocket.getOutputStream(), true);
+            if(playerIndex != 1) {
+                this.gameType = Integer.parseInt(input2.readLine());
+            }
+            new ChatClientReader(chatSocket,textArea).start();
+        }catch (IOException e){
+            System.out.println(e.toString());
+        }
 
-            indexesOfPawns.add(bluePawn1);
-            indexesOfPawns.add(bluePawn2);
-            indexesOfPawns.add(bluePawn3);
-            indexesOfPawns.add(bluePawn4);
-            indexesOfPawns.add(yellowPawn1);
-            indexesOfPawns.add(yellowPawn2);
-            indexesOfPawns.add(yellowPawn3);
-            indexesOfPawns.add(yellowPawn4);
 
-            indexesOfPawnsObject.add(bluePawn1Object);
-            indexesOfPawnsObject.add(yellowPawn1Object);
-
-            paths.add(bluePlayerPath);
-            paths.add(yellowPlayerPath);
-
-            playersTurns.add(blueTurn);
-            playersTurns.add(yellowTurn);
-
-            bluePawn1.setDisable(true);
-            greenPawn1.setDisable(true);
-            yellowPawn1.setDisable(true);
-
-            greenDice.setDisable(true);
-            redDice.setDisable(true);
-            yellowDice.setDisable(true);
-        }else if(gameType == 3){
-            bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
-            yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
-            greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), greenSpawn1.positionY,greenStart);
-
-            indexesOfDices.add(blueDice);
-            indexesOfDices.add(yellowDice);
-            indexesOfDices.add(greenDice);
-
-            indexesOfPawns.add(bluePawn1);
-            indexesOfPawns.add(bluePawn2);
-            indexesOfPawns.add(bluePawn3);
-            indexesOfPawns.add(bluePawn4);
-
-            indexesOfPawns.add(yellowPawn1);
-            indexesOfPawns.add(yellowPawn2);
-            indexesOfPawns.add(yellowPawn3);
-            indexesOfPawns.add(yellowPawn4);
-
-            indexesOfPawns.add(greenPawn1);
-            indexesOfPawns.add(greenPawn2);
-            indexesOfPawns.add(greenPawn3);
-            indexesOfPawns.add(greenPawn4);
-
-            indexesOfPawnsObject.add(bluePawn1Object);
-            indexesOfPawnsObject.add(yellowPawn1Object);
-            indexesOfPawnsObject.add(greenPawn1Object);
-
-            paths.add(bluePlayerPath);
-            paths.add(yellowPlayerPath);
-            paths.add(greenPlayerPath);
-
-            playersTurns.add(blueTurn);
-            playersTurns.add(yellowTurn);
-            playersTurns.add(greenTurn);
-
-            bluePawn1.setDisable(true);
-            yellowPawn1.setDisable(true);
-            greenPawn1.setDisable(true);
-
-            yellowDice.setDisable(true);
-            greenDice.setDisable(true);
-            redDice.setDisable(true);
-        }else {
-            bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
-            yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
-            greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), greenSpawn1.positionY,greenStart);
-            redPawn1Object = new Pawn(redPawn1, -1, redSpawn1.getPositionX(), redSpawn1.positionY,redStart);
-
-            indexesOfDices.add(blueDice);
-            indexesOfDices.add(yellowDice);
-            indexesOfDices.add(greenDice);
-            indexesOfDices.add(redDice);
-
-            indexesOfPawns.add(bluePawn1);
-            indexesOfPawns.add(bluePawn2);
-            indexesOfPawns.add(bluePawn3);
-            indexesOfPawns.add(bluePawn4);
-            indexesOfPawns.add(yellowPawn1);
-            indexesOfPawns.add(yellowPawn2);
-            indexesOfPawns.add(yellowPawn3);
-            indexesOfPawns.add(yellowPawn4);
-            indexesOfPawns.add(greenPawn1);
-            indexesOfPawns.add(greenPawn2);
-            indexesOfPawns.add(greenPawn3);
-            indexesOfPawns.add(greenPawn4);
-            indexesOfPawns.add(redPawn1);
-            indexesOfPawns.add(redPawn2);
-            indexesOfPawns.add(redPawn3);
-            indexesOfPawns.add(redPawn4);
-
-            indexesOfPawnsObject.add(bluePawn1Object);
-            indexesOfPawnsObject.add(yellowPawn1Object);
-            indexesOfPawnsObject.add(greenPawn1Object);
-            indexesOfPawnsObject.add(redPawn1Object);
-
-            paths.add(bluePlayerPath);
-            paths.add(yellowPlayerPath);
-            paths.add(greenPlayerPath);
-            paths.add(redPlayerPath);
-
-            playersTurns.add(blueTurn);
-            playersTurns.add(yellowTurn);
-            playersTurns.add(greenTurn);
-            playersTurns.add(redTurn);
-
-            bluePawn1.setDisable(true);
-            yellowPawn1.setDisable(true);
-            greenPawn1.setDisable(true);
-            redPawn1.setDisable(true);
-
-            yellowDice.setDisable(true);
-            greenDice.setDisable(true);
-            redDice.setDisable(true);
+        if(gameType == 2 && playerIndex != 1){
+            init2PlayersGame();
+        }else if(gameType == 3 && playerIndex != 1){
+            init3PlayersGame();
+        }else if(gameType == 4 && playerIndex != 1){
+            init4PlayersGame();
         }
 
         //useless for now
@@ -496,15 +398,10 @@ public class Controller{
         bluePawn3.setDisable(true);
         bluePawn4.setDisable(true);
 
-        try{
-            this.boardSocket = new Socket("127.0.0.1", 7777);
-            this.input = new BufferedReader(new InputStreamReader(this.boardSocket.getInputStream()));
-            this.output = new PrintWriter(this.boardSocket.getOutputStream(), true);
-            this.playerIndex = Integer.parseInt(input.readLine());
-            new BoardController(boardSocket,indexesOfPawns,indexesOfPawnsObject,paths,playersTurns,indexesOfDices).start();
-        }catch (IOException e){
-            System.out.println(e.toString());
-            System.exit(1);
+        if(this.playerIndex != 1){
+            gameType1.setVisible(false);
+            gameType2.setVisible(false);
+            gameType3.setVisible(false);
         }
     }
 
@@ -516,6 +413,165 @@ public class Controller{
     public int blueTries = -1;
     public int greenTries = -1;
     public int redTries = -1;
+
+    public void twoPlayersGame(ActionEvent actionEvent) {
+        this.gameType = 2;
+        output2.println(gameType);
+        init2PlayersGame();
+        gameType1.setVisible(false);
+        gameType2.setVisible(false);
+        gameType3.setVisible(false);
+    }
+
+    public void threePlayersGame(ActionEvent actionEvent) {
+        this.gameType = 3;
+        output2.println(gameType);
+        init3PlayersGame();
+        gameType1.setVisible(false);
+        gameType2.setVisible(false);
+        gameType3.setVisible(false);
+    }
+
+    public void fourPlayersGame(ActionEvent actionEvent) {
+        this.gameType = 4;
+        init4PlayersGame();
+        output2.println(gameType);
+        gameType1.setVisible(false);
+        gameType2.setVisible(false);
+        gameType3.setVisible(false);
+    }
+
+    public void init2PlayersGame(){
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
+        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
+
+        indexesOfDices.add(blueDice);
+        indexesOfDices.add(yellowDice);
+
+        indexesOfPawns.add(bluePawn1);
+        indexesOfPawns.add(bluePawn2);
+        indexesOfPawns.add(bluePawn3);
+        indexesOfPawns.add(bluePawn4);
+        indexesOfPawns.add(yellowPawn1);
+        indexesOfPawns.add(yellowPawn2);
+        indexesOfPawns.add(yellowPawn3);
+        indexesOfPawns.add(yellowPawn4);
+
+        indexesOfPawnsObject.add(bluePawn1Object);
+        indexesOfPawnsObject.add(yellowPawn1Object);
+
+        paths.add(bluePlayerPath);
+        paths.add(yellowPlayerPath);
+
+        playersTurns.add(blueTurn);
+        playersTurns.add(yellowTurn);
+
+        bluePawn1.setDisable(true);
+        greenPawn1.setDisable(true);
+        yellowPawn1.setDisable(true);
+
+        greenDice.setDisable(true);
+        redDice.setDisable(true);
+        yellowDice.setDisable(true);
+    }
+
+    public void init3PlayersGame(){
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
+        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
+        greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), greenSpawn1.positionY,greenStart);
+
+        indexesOfDices.add(blueDice);
+        indexesOfDices.add(yellowDice);
+        indexesOfDices.add(greenDice);
+
+        indexesOfPawns.add(bluePawn1);
+        indexesOfPawns.add(bluePawn2);
+        indexesOfPawns.add(bluePawn3);
+        indexesOfPawns.add(bluePawn4);
+
+        indexesOfPawns.add(yellowPawn1);
+        indexesOfPawns.add(yellowPawn2);
+        indexesOfPawns.add(yellowPawn3);
+        indexesOfPawns.add(yellowPawn4);
+
+        indexesOfPawns.add(greenPawn1);
+        indexesOfPawns.add(greenPawn2);
+        indexesOfPawns.add(greenPawn3);
+        indexesOfPawns.add(greenPawn4);
+
+        indexesOfPawnsObject.add(bluePawn1Object);
+        indexesOfPawnsObject.add(yellowPawn1Object);
+        indexesOfPawnsObject.add(greenPawn1Object);
+
+        paths.add(bluePlayerPath);
+        paths.add(yellowPlayerPath);
+        paths.add(greenPlayerPath);
+
+        playersTurns.add(blueTurn);
+        playersTurns.add(yellowTurn);
+        playersTurns.add(greenTurn);
+
+        bluePawn1.setDisable(true);
+        yellowPawn1.setDisable(true);
+        greenPawn1.setDisable(true);
+
+        yellowDice.setDisable(true);
+        greenDice.setDisable(true);
+        redDice.setDisable(true);
+    }
+
+    public void init4PlayersGame(){
+        bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart);
+        yellowPawn1Object = new Pawn(yellowPawn1, -1, yellowSpawn1.getPositionX(), yellowSpawn1.positionY,yellowStart);
+        greenPawn1Object = new Pawn(greenPawn1, -1, greenSpawn1.getPositionX(), greenSpawn1.positionY,greenStart);
+        redPawn1Object = new Pawn(redPawn1, -1, redSpawn1.getPositionX(), redSpawn1.positionY,redStart);
+
+        indexesOfDices.add(blueDice);
+        indexesOfDices.add(yellowDice);
+        indexesOfDices.add(greenDice);
+        indexesOfDices.add(redDice);
+
+        indexesOfPawns.add(bluePawn1);
+        indexesOfPawns.add(bluePawn2);
+        indexesOfPawns.add(bluePawn3);
+        indexesOfPawns.add(bluePawn4);
+        indexesOfPawns.add(yellowPawn1);
+        indexesOfPawns.add(yellowPawn2);
+        indexesOfPawns.add(yellowPawn3);
+        indexesOfPawns.add(yellowPawn4);
+        indexesOfPawns.add(greenPawn1);
+        indexesOfPawns.add(greenPawn2);
+        indexesOfPawns.add(greenPawn3);
+        indexesOfPawns.add(greenPawn4);
+        indexesOfPawns.add(redPawn1);
+        indexesOfPawns.add(redPawn2);
+        indexesOfPawns.add(redPawn3);
+        indexesOfPawns.add(redPawn4);
+
+        indexesOfPawnsObject.add(bluePawn1Object);
+        indexesOfPawnsObject.add(yellowPawn1Object);
+        indexesOfPawnsObject.add(greenPawn1Object);
+        indexesOfPawnsObject.add(redPawn1Object);
+
+        paths.add(bluePlayerPath);
+        paths.add(yellowPlayerPath);
+        paths.add(greenPlayerPath);
+        paths.add(redPlayerPath);
+
+        playersTurns.add(blueTurn);
+        playersTurns.add(yellowTurn);
+        playersTurns.add(greenTurn);
+        playersTurns.add(redTurn);
+
+        bluePawn1.setDisable(true);
+        yellowPawn1.setDisable(true);
+        greenPawn1.setDisable(true);
+        redPawn1.setDisable(true);
+
+        yellowDice.setDisable(true);
+        greenDice.setDisable(true);
+        redDice.setDisable(true);
+    }
 
     public void bluePawnMovement() {
         if(playerIndex==1) {
@@ -675,4 +731,5 @@ public class Controller{
         }
         inputBox.setText("");
     }
+
 }

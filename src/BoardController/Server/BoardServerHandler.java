@@ -22,7 +22,7 @@ public class BoardServerHandler extends Thread{
         try {
             String index;
             output.println(players.getAmoutOfPlayers());
-            while ( (index = input.readLine()) != null) {
+            while ((index = input.readLine()) != null) {
                 players.notifyPlayers(index);
             }
         }catch (IOException e){
