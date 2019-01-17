@@ -8,20 +8,10 @@ import java.util.Collections;
 public class Players {
     private final Collection<PrintWriter> players = Collections.synchronizedCollection(new ArrayList<>());
     private int amoutOfPlayers;
-    private int gameType;
 
 
     public Players(){
         this.amoutOfPlayers = 0;
-        this.gameType = 0;
-    }
-
-    public int getGameType() {
-        return gameType;
-    }
-
-    public void setGameType(int gameType) {
-        this.gameType = gameType;
     }
 
     public int getAmoutOfPlayers() {
