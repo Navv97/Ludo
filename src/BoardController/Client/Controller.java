@@ -608,6 +608,9 @@ public class Controller{
     }
 
     public void pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer){
+        if(diceThrow == 6){
+            nextPlayer=currentPlayer;
+        }
         int moveBy = currentPosition + diceThrow;
         setPawnPosition(pawnButtonID,pawnObjectID,pathID,moveBy,currentPlayer,nextPlayer);
         indexesOfPawns.get(pawnButtonID).setDisable(true);
