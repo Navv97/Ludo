@@ -1,9 +1,9 @@
-package BoardController.Client;
+package main.java.BoardController.Client;
 
-import Chat.Client.ChatClientReader;
-import Chat.Client.ChatClientWriter;
-import Model.Field;
-import Model.Pawn;
+import main.java.Chat.Client.ChatClientReader;
+import main.java.Chat.Client.ChatClientWriter;
+import main.java.Model.Field;
+import main.java.Model.Pawn;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -881,8 +881,8 @@ public class Controller{
         pawnMovement(15, 15, redPawn4Object.getCurrentPosition(), 3, redDice, 3, nextPlayer,3);
     }
 
-
-    public void pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer, int yourPawns){
+    public int pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer, int yourPawns){
+        int moveBy = 0;
         if(diceThrow == 6){
             nextPlayer=currentPlayer;
         }
@@ -892,7 +892,7 @@ public class Controller{
             indexesOfPawnsObject.get(pawnObjectID).getSpawnPosition().setTaken(false);
             dice.setDisable(false);
         }else {
-            int moveBy = currentPosition + diceThrow;
+            moveBy = currentPosition + diceThrow;
             indexesOfPawns.get(pawnButtonID).setDisable(false);
             setPawnPosition(pawnButtonID, pawnObjectID, pathID, moveBy, currentPlayer, nextPlayer);
             allButtons.get(yourPawns).get(0).setDisable(true);
@@ -901,6 +901,7 @@ public class Controller{
             allButtons.get(yourPawns).get(3).setDisable(true);
             dice.setDisable(false);
         }
+        return moveBy;
     }
 
     public void blueDiceRoll() {
@@ -979,7 +980,7 @@ public class Controller{
         if(playersTurns.get(yourTurn)){
             if(yourTries < 3){
                 System.out.println("Proby: " + yourTries);
-                diceThrow = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+                diceThrow = diceThrow();
                 indexesOfDices.get(yourDice).setText(diceThrow.toString());
                 if(diceThrow == 6){
                     allButtons.get(yourPawns).get(0).setDisable(false);
@@ -1002,6 +1003,10 @@ public class Controller{
                 }
             }
         }
+    }
+
+    public int diceThrow(){
+        return ThreadLocalRandom.current().nextInt(1, 6 + 1);
     }
 
     public void setPawnPosition(int buttonID, int pawnID, int pathID, int moveBy, int currentPlayer, int nextPlayer){

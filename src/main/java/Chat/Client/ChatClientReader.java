@@ -1,4 +1,4 @@
-package Chat.Client;
+package main.java.Chat.Client;
 
 import javafx.scene.control.TextArea;
 

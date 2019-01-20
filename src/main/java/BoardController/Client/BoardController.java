@@ -1,8 +1,8 @@
-package BoardController.Client;
+package main.java.BoardController.Client;
 
 import javafx.scene.control.Button;
-import Model.Field;
-import Model.Pawn;
+import main.java.Model.Field;
+import main.java.Model.Pawn;
 
 import java.io.BufferedReader;
 import java.io.IOException;

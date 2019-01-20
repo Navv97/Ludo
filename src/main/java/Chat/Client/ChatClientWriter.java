@@ -1,4 +1,4 @@
-package Chat.Client;
+package main.java.Chat.Client;
 
 import java.io.IOException;
 import java.io.PrintWriter;

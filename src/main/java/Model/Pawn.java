@@ -1,6 +1,5 @@
-package Model;
+package main.java.Model;
 
-import Model.Field;
 import javafx.scene.control.Button;
 
 import java.io.Serializable;
