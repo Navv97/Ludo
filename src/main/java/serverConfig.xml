@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <ip>127.0.0.1</ip>
+    <port>7777</port>
+	<minPlayers>2</minPlayers>
+    <maxPlayers>4</maxPlayers>
+    <color1>blue</color1>
+	<color2>yellow</color2>
+	<color3>green</color3>
+	<color4>red</color4>
+</settings>
