@@ -1,6 +1,8 @@
 package BoardController.Client;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.java.BoardController.Client.Controller;
@@ -40,7 +42,6 @@ public class ControllerTests {
     }
 
     @Test
-    public void checkIfFieldIsTaken(){
-
+    public void checkIfFieldIsTaken() throws IOException{
     }
 }

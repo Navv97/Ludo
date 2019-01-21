@@ -163,11 +163,18 @@ public class Controller{
     public ArrayList<ArrayList <Field>> paths;
     public ArrayList<Boolean> playersTurns;
     public ArrayList<Button> indexesOfDices;
+
     public ArrayList<Button> bluePawns;
     public ArrayList<Button> yellowPawns;
     public ArrayList<Button> greenPawns;
     public ArrayList<Button> redPawns;
     public ArrayList<ArrayList<Button>> allButtons;
+
+    public ArrayList<Pawn> bluePawnsObjects;
+    public ArrayList<Pawn> yellowPawnsObjects;
+    public ArrayList<Pawn> greenPawnsObjects;
+    public ArrayList<Pawn> redPawnsObjects;
+    public ArrayList<ArrayList<Pawn>> allPawnsObjects;
 
     public ArrayList<Field> blueSpawns;
     public ArrayList<Field> yellowSpawns;
@@ -882,6 +889,7 @@ public class Controller{
     }
 
     public int pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer, int yourPawns){
+
         int moveBy = 0;
         if(diceThrow == 6){
             nextPlayer=currentPlayer;
