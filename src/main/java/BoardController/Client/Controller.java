@@ -394,6 +394,12 @@ public class Controller{
         redSpawns = new ArrayList<>();
         allSpawns = new ArrayList<>();
 
+        bluePawnsObjects = new ArrayList<>();
+        yellowPawnsObjects = new ArrayList<>();
+        greenPawnsObjects = new ArrayList<>();
+        redPawnsObjects = new ArrayList<>();
+        allPawnsObjects = new ArrayList<>();
+
         blueSpawns.add(blueSpawn1);
         blueSpawns.add(blueSpawn2);
         blueSpawns.add(blueSpawn3);
@@ -526,6 +532,11 @@ public class Controller{
         yellowPawn3Object = new Pawn(yellowPawn3,-1,yellowSpawn3.getPositionX(), yellowSpawn3.getPositionY(),yellowStart,yellowSpawn3);
         yellowPawn4Object = new Pawn(yellowPawn4,-1,yellowSpawn4.getPositionX(), yellowSpawn4.getPositionY(),yellowStart,yellowSpawn4);
 
+        addBluePawns();
+        addYellowPawns();
+        allPawnsObjects.add(bluePawnsObjects);
+        allPawnsObjects.add(yellowPawnsObjects);
+
         bluePawns.add(bluePawn1);
         bluePawns.add(bluePawn2);
         bluePawns.add(bluePawn3);
@@ -586,6 +597,13 @@ public class Controller{
         greenPawn2Object = new Pawn(greenPawn2,-1,greenSpawn2.getPositionX(),greenSpawn2.getPositionY(),greenStart,greenSpawn2);
         greenPawn3Object = new Pawn(greenPawn3,-1,greenSpawn3.getPositionX(),greenSpawn3.getPositionY(),greenStart,greenSpawn3);
         greenPawn4Object = new Pawn(greenPawn4,-1,greenSpawn4.getPositionX(),greenSpawn4.getPositionY(),greenStart,greenSpawn4);
+
+        addBluePawns();
+        addYellowPawns();
+        addGreenPawns();
+        allPawnsObjects.add(bluePawnsObjects);
+        allPawnsObjects.add(yellowPawnsObjects);
+        allPawnsObjects.add(greenPawnsObjects);
 
         bluePawns.add(bluePawn1);
         bluePawns.add(bluePawn2);
@@ -652,6 +670,34 @@ public class Controller{
         redDice.setDisable(true);
     }
 
+    public void addBluePawns(){
+        bluePawnsObjects.add(bluePawn1Object);
+        bluePawnsObjects.add(bluePawn2Object);
+        bluePawnsObjects.add(bluePawn3Object);
+        bluePawnsObjects.add(bluePawn4Object);
+    }
+
+    public void addYellowPawns(){
+        yellowPawnsObjects.add(yellowPawn1Object);
+        yellowPawnsObjects.add(yellowPawn2Object);
+        yellowPawnsObjects.add(yellowPawn3Object);
+        yellowPawnsObjects.add(yellowPawn4Object);
+    }
+
+    public void addGreenPawns(){
+        greenPawnsObjects.add(greenPawn1Object);
+        greenPawnsObjects.add(greenPawn2Object);
+        greenPawnsObjects.add(greenPawn3Object);
+        greenPawnsObjects.add(greenPawn4Object);
+    }
+
+    public void addRedPawns(){
+        redPawnsObjects.add(redPawn1Object);
+        redPawnsObjects.add(redPawn2Object);
+        redPawnsObjects.add(redPawn3Object);
+        redPawnsObjects.add(redPawn4Object);
+    }
+
     public void init4PlayersGame(){
         bluePawn1Object = new Pawn(bluePawn1, -1, blueSpawn1.getPositionX(), blueSpawn1.getPositionY(),blueStart,blueSpawn1);
         bluePawn2Object = new Pawn(bluePawn2, -1, blueSpawn2.getPositionX(), blueSpawn2.getPositionY(),blueStart,blueSpawn2);
@@ -669,6 +715,15 @@ public class Controller{
         redPawn2Object = new Pawn(redPawn2,-1,redSpawn2.getPositionX(),redSpawn2.getPositionY(),redStart,redSpawn2);
         redPawn3Object = new Pawn(redPawn3,-1,redSpawn3.getPositionX(),redSpawn3.getPositionY(),redStart,redSpawn3);
         redPawn4Object = new Pawn(redPawn4,-1,redSpawn4.getPositionX(),redSpawn4.getPositionY(),redStart,redSpawn4);
+
+        addBluePawns();
+        addYellowPawns();
+        addGreenPawns();
+        addRedPawns();
+        allPawnsObjects.add(bluePawnsObjects);
+        allPawnsObjects.add(yellowPawnsObjects);
+        allPawnsObjects.add(greenPawnsObjects);
+        allPawnsObjects.add(redPawnsObjects);
 
         bluePawns.add(bluePawn1);
         bluePawns.add(bluePawn2);
@@ -889,7 +944,6 @@ public class Controller{
     }
 
     public int pawnMovement(int pawnButtonID, int pawnObjectID, int currentPosition, int pathID, Button dice, int currentPlayer, int nextPlayer, int yourPawns){
-
         int moveBy = 0;
         if(diceThrow == 6){
             nextPlayer=currentPlayer;
@@ -908,6 +962,9 @@ public class Controller{
             allButtons.get(yourPawns).get(2).setDisable(true);
             allButtons.get(yourPawns).get(3).setDisable(true);
             dice.setDisable(false);
+        }
+        if((allPawnsObjects.get(yourPawns).get(0).currentPosition >= 40) && (allPawnsObjects.get(yourPawns).get(1).currentPosition >= 40) && (allPawnsObjects.get(yourPawns).get(2).currentPosition >= 40) && (allPawnsObjects.get(yourPawns).get(3).currentPosition >= 40) ){
+            System.out.println("Player nr: " + currentPlayer + " won the game!");
         }
         return moveBy;
     }
